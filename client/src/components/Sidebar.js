@@ -7,34 +7,40 @@ import { FiHome, FiUser, FiBell, FiBookmark } from "react-icons/fi";
 import { CurrentUserContext } from "./CurrentUserContext";
 
 const Sidebar = () => {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, status } = useContext(CurrentUserContext);
   return (
     <Wrapper>
       <Logo style={{ width: "40px" }} />
-      <SingleLinkContainer>
-        <NavigationLink exact to="/">
-          <FiHome />
-          <LinkText>Home</LinkText>
-        </NavigationLink>
-      </SingleLinkContainer>
-      <SingleLinkContainer>
-        <NavigationLink exact to={`/${currentUser}`}>
-          <FiUser />
-          <LinkText>Profile</LinkText>
-        </NavigationLink>
-      </SingleLinkContainer>
-      <SingleLinkContainer>
-        <NavigationLink exact to="/notifications">
-          <FiBell />
-          <LinkText>Notifications</LinkText>
-        </NavigationLink>
-      </SingleLinkContainer>
-      <SingleLinkContainer>
-        <NavigationLink exact to="/bookmarks">
-          <FiBookmark />
-          <LinkText>Bookmarks</LinkText>
-        </NavigationLink>
-      </SingleLinkContainer>
+      {status === "loading" ? (
+        <p>...loading</p>
+      ) : (
+        <>
+          <SingleLinkContainer>
+            <NavigationLink exact to="/">
+              <FiHome />
+              <LinkText>Home</LinkText>
+            </NavigationLink>
+          </SingleLinkContainer>
+          <SingleLinkContainer>
+            <NavigationLink exact to={`/${currentUser}`}>
+              <FiUser />
+              <LinkText>Profile</LinkText>
+            </NavigationLink>
+          </SingleLinkContainer>
+          <SingleLinkContainer>
+            <NavigationLink exact to="/notifications">
+              <FiBell />
+              <LinkText>Notifications</LinkText>
+            </NavigationLink>
+          </SingleLinkContainer>
+          <SingleLinkContainer>
+            <NavigationLink exact to="/bookmarks">
+              <FiBookmark />
+              <LinkText>Bookmarks</LinkText>
+            </NavigationLink>
+          </SingleLinkContainer>
+        </>
+      )}
     </Wrapper>
   );
 };

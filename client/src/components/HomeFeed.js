@@ -1,12 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { TweetFeedContext } from "./TweetFeedsContext";
+
 import Tweet from "./Tweet/Tweet";
 
-const HomeFeed = () => {
-  const { status } = useContext(CurrentUserContext);
-  const { allTweets, feedStatus } = useContext(TweetFeedContext);
+const HomeFeed = (props) => {
+  const { allTweets, feedStatus, status } = props;
 
   return (
     <Wrapper>

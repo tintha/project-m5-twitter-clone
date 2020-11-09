@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import HomeFeed from "./HomeFeed";
 import Notifications from "./Notifications";
 import Bookmarks from "./Bookmarks";
 import TweetDetails from "./Tweet/TweetDetails";
-import Profile from "./Profile";
+import Profile from "./profile/Profile";
 import Sidebar from "./Sidebar";
+import { CurrentUserContext } from "./CurrentUserContext";
+import { TweetFeedContext } from "./TweetFeedsContext";
+import { ProfileProvider } from "./ProfileContext";
 
 function App() {
+  const { status, currentUser } = useContext(CurrentUserContext);
+  const { allTweets, feedStatus } = useContext(TweetFeedContext);
+
   return (
     <Main>
       <Router>
@@ -16,7 +22,11 @@ function App() {
         <Content>
           <Switch>
             <Route exact path="/">
-              <HomeFeed />
+              <HomeFeed
+                status={status}
+                allTweets={allTweets}
+                feedStatus={feedStatus}
+              />
             </Route>
             <Route exact path="/notifications">
               <Notifications />
@@ -28,7 +38,9 @@ function App() {
               <TweetDetails />
             </Route>
             <Route exact path="/:profile">
-              <Profile />
+              <ProfileProvider>
+                <Profile currentUser={currentUser} />
+              </ProfileProvider>
             </Route>
           </Switch>
         </Content>

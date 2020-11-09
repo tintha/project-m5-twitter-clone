@@ -12,32 +12,37 @@ export const ProfileProvider = ({ children }) => {
   const [feedDetails, setFeedDetails] = React.useState({});
 
   React.useEffect(() => {
-    fetch(`/api/${params.profile}/profile`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProfileInfo({ ...data.profile });
-        setLoadingProfile("iddle");
-      });
-  }, [params.profile]);
+    if (params.profile) {
+      fetch(`/api/${params.profile}/profile`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setProfileInfo({ ...data.profile });
+          setLoadingProfile("iddle");
+        });
 
-  React.useEffect(() => {
-    fetch(`/api/${params.profile}/feed`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUserFeed([...data.tweetIds]);
-        setFeedDetails({ ...data.tweetsById });
-        setLoadingFeed("iddle");
-      });
+      fetch(`/api/${params.profile}/feed`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUserFeed([...data.tweetIds]);
+          setFeedDetails({ ...data.tweetsById });
+          setLoadingFeed("iddle");
+        });
+    }
+
+    return function cleanup() {
+      setLoadingProfile("loading");
+      setLoadingFeed("loading");
+    };
   }, [params.profile]);
 
   return (

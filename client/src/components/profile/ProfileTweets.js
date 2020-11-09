@@ -3,43 +3,45 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
 import { FiRepeat } from "react-icons/fi";
-import { TweetFeedContext } from "../TweetFeedsContext";
-import ActionBar from "./ActionBar";
-import Avatar from "./Avatar";
-import Media from "./Media";
+import { ProfileContext } from "../ProfileContext";
+import ActionBar from "../Tweet/ActionBar";
+import Avatar from "../Tweet/Avatar";
+import Media from "../Tweet/Media";
 
 const Tweet = ({ tweetId }) => {
-  const { tweetsObjects } = useContext(TweetFeedContext);
-  const { id, status, timestamp, author, media, retweetFrom } = tweetsObjects[
-    tweetId
-  ];
+  const { feedDetails } = useContext(ProfileContext);
+  const tweet = feedDetails[tweetId];
 
   return (
     <>
       <Wrapper>
         <RetweetContainer>
-          {retweetFrom && (
+          {tweet.retweetFrom && (
             <>
-              <FiRepeat /> <span>{retweetFrom.displayName} Remeowed</span>
+              <FiRepeat /> <span>{tweet.retweetFrom.displayName} Remeowed</span>
             </>
           )}
         </RetweetContainer>
         <AvatarAndTweetContainer>
           <AvatarContainer>
-            <Avatar src={author.avatarSrc} width="50" />
+            <Avatar src={tweet.author.avatarSrc} width="50" />
           </AvatarContainer>
           <TweetContainer>
-            <Anchor to={`/${author.handle}`} key={author.handle}>
-              <Bold>{author.displayName}</Bold> @{author.handle}
-            </Anchor>
-            - {moment(timestamp).format("MMM Do")}
-            <Anchor to={`/tweet/${id}`} key={id}>
-              <TweetContents>{status}</TweetContents>
-              {media.length > 0 && (
-                <Media src={media[0].url} maxwidth={450} maxheight={250} />
+            <TweetLink to={`/${tweet.author.handle}`} key={tweet.author.handle}>
+              <Bold>{tweet.author.displayName}</Bold> @{tweet.author.handle}
+            </TweetLink>
+            - {moment(tweet.timestamp).format("MMM Do")}
+            <TweetLink to={`/tweet/${tweetId}`} key={tweetId}>
+              <TweetContents>{tweet.status}</TweetContents>
+              {tweet.media.length > 0 && (
+                <Media
+                  src={tweet.media[0].url}
+                  maxwidth={450}
+                  maxheight={250}
+                />
               )}
-              <ActionBar />
-            </Anchor>
+            </TweetLink>
+            <ActionBar />
           </TweetContainer>
         </AvatarAndTweetContainer>
         <Divider />
@@ -88,7 +90,7 @@ const Divider = styled.div`
   background: rgb(230, 236, 240);
 `;
 
-const Anchor = styled(Link)`
+const TweetLink = styled(Link)`
   text-decoration: none;
 `;
 
