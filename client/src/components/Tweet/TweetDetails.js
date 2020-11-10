@@ -11,7 +11,6 @@ const TweetDetails = () => {
   const params = useParams();
   const [loading, setLoading] = useState("loading");
   const [tweetInfo, setTweetInfo] = useState({});
-  const [likedByUser, setLikedByUser] = useState(null);
 
   useEffect(() => {
     if (params.tweetId) {
@@ -31,7 +30,7 @@ const TweetDetails = () => {
     return function cleanup() {
       setLoading("loading");
     };
-  }, [params.tweetId, likedByUser]);
+  }, [params.tweetId]);
 
   return (
     <Wrapper>
@@ -64,8 +63,8 @@ const TweetDetails = () => {
           <ActionBar
             numLikes={tweetInfo.numLikes}
             numRetweets={tweetInfo.numRetweets}
-            likedByUser={tweetInfo.isLiked}
-            setLikedByUser={setLikedByUser}
+            tweetId={params.tweetId}
+            isLikedByUser={tweetInfo.isLiked}
           />
         </>
       )}

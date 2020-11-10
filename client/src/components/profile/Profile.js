@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import { FiMapPin, FiCalendar } from "react-icons/fi";
+import { FiMapPin, FiCalendar, FiLink } from "react-icons/fi";
 import { ProfileContext } from "../ProfileContext";
 import Avatar from "../Tweet/Avatar";
 import SmallTweet from "../Tweet/SmallTweet";
@@ -24,6 +24,13 @@ const Profile = ({ currentUser }) => {
           <>
             <img src={profileInfo.bannerSrc} alt="" />
             <Avatar src={profileInfo.avatarSrc} width="100" alt="" />
+            {profileInfo.handle !== currentUser &&
+              (profileInfo.isBeingFollowedByYou ? (
+                <button>Following</button>
+              ) : (
+                <button>Follow</button>
+              ))}
+
             <p>{profileInfo.displayName}</p>
             <p>@{profileInfo.handle}</p>
             {profileInfo.handle !== currentUser &&
@@ -33,6 +40,12 @@ const Profile = ({ currentUser }) => {
               <>
                 <FiMapPin />
                 <p>{profileInfo.location}</p>
+              </>
+            )}
+            {profileInfo.url && (
+              <>
+                <FiLink />
+                <p>{profileInfo.url}</p>
               </>
             )}
             <FiCalendar />
@@ -62,7 +75,7 @@ const Profile = ({ currentUser }) => {
                 media={feedDetails[tweet].media}
                 numLikes={feedDetails[tweet].numLikes}
                 numRetweets={feedDetails[tweet].numRetweets}
-                isLiked={feedDetails[tweet].isLiked}
+                isLikedByUser={feedDetails[tweet].isLiked}
               />
             );
           })

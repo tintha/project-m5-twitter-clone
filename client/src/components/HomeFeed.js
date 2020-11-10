@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { TweetFeedContext } from "./TweetFeedsContext";
 import SmallTweet from "./Tweet/SmallTweet";
@@ -6,7 +6,6 @@ import SmallTweet from "./Tweet/SmallTweet";
 const HomeFeed = (props) => {
   const { allTweets, feedStatus, status } = props;
   const { tweetsObjects } = useContext(TweetFeedContext);
-  const [likedByUser, setLikedByUser] = useState(null);
 
   return (
     <Wrapper>
@@ -28,7 +27,7 @@ const HomeFeed = (props) => {
                 media={tweetsObjects[tweet].media}
                 numLikes={tweetsObjects[tweet].numLikes}
                 numRetweets={tweetsObjects[tweet].numRetweets}
-                isLiked={tweetsObjects[tweet].isLiked}
+                isLikedByUser={tweetsObjects[tweet].isLiked}
               />
             );
           })}

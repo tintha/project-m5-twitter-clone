@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FiMessageCircle, FiRepeat, FiHeart, FiUpload } from "react-icons/fi";
 
 const ActionBar = (props) => {
-  const { tweetId, numLikes, numRetweets, likedByUser, setLikedByUser } = props;
+  const { tweetId, numLikes, numRetweets, isLikedByUser } = props;
+  const [numberOfLikes, setNumberOfLikes] = useState(numLikes);
+  const [likedByUser, setLikedByUser] = useState(isLikedByUser);
 
-  const handleLike = (e) => {
-    console.log("cliked");
-
+  const handleToggleLike = (e) => {
     fetch(`/api/tweet/${tweetId}/like`, {
       method: "PUT",
       body: JSON.stringify({ like: !likedByUser }),
@@ -19,12 +19,12 @@ const ActionBar = (props) => {
       .then((res) => res.json())
       .then((resp) => {
         if (resp.success) {
-          console.log(resp.success);
           setLikedByUser(!likedByUser);
-          console.log(`likedbyuser : ${likedByUser}`);
+          likedByUser === true
+            ? setNumberOfLikes(numberOfLikes - 1)
+            : setNumberOfLikes(numberOfLikes + 1);
         } else if (resp.error) {
           console.log(resp.error);
-          console.log(`likedbyuser : ${likedByUser}`);
         }
       });
   };
@@ -37,8 +37,8 @@ const ActionBar = (props) => {
         {numRetweets > 0 && <Number>{numRetweets}</Number>}
       </ActionDiv>
       <ActionDiv>
-        <FiHeart onClick={(e) => handleLike(e)} />
-        {numLikes > 0 && <Number>{numLikes}</Number>}
+        <FiHeart className="heart-icon" onClick={(e) => handleToggleLike(e)} />
+        {numberOfLikes > 0 && <Number>{numberOfLikes}</Number>}
       </ActionDiv>
       <FiUpload />
     </Wrapper>

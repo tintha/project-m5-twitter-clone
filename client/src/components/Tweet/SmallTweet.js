@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
@@ -17,10 +17,8 @@ const SmallTweet = (props) => {
     media,
     numLikes,
     numRetweets,
-    isLiked,
+    isLikedByUser,
   } = props;
-
-  const [likedByUser, setLikedByUser] = useState(null);
 
   return (
     <>
@@ -51,8 +49,7 @@ const SmallTweet = (props) => {
               numLikes={numLikes}
               numRetweets={numRetweets}
               tweetId={tweetId}
-              likedByUser={isLiked}
-              setLikedByUser={setLikedByUser}
+              isLikedByUser={isLikedByUser}
             />
           </TweetContainer>
         </AvatarAndTweetContainer>
