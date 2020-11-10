@@ -7,13 +7,16 @@ import Bookmarks from "./Bookmarks";
 import TweetDetails from "./Tweet/TweetDetails";
 import Profile from "./profile/Profile";
 import Sidebar from "./Sidebar";
+import Form from "./Form";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { TweetFeedContext } from "./TweetFeedsContext";
 import { ProfileProvider } from "./ProfileContext";
 
 function App() {
   const { status, currentUser } = useContext(CurrentUserContext);
-  const { allTweets, feedStatus } = useContext(TweetFeedContext);
+  const { allTweets, feedStatus, setNewTweetPost } = useContext(
+    TweetFeedContext
+  );
 
   return (
     <Main>
@@ -22,6 +25,8 @@ function App() {
         <Content>
           <Switch>
             <Route exact path="/">
+              <h1>Home</h1>
+              <Form setNewTweetPost={setNewTweetPost} />
               <HomeFeed
                 status={status}
                 allTweets={allTweets}

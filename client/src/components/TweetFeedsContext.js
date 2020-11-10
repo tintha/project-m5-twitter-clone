@@ -6,6 +6,7 @@ export const TweetFeedProvider = ({ children }) => {
   const [allTweets, setAllTweets] = React.useState([]);
   const [feedStatus, setFeedStatus] = React.useState("loading");
   const [tweetsObjects, setTweetsObjects] = React.useState({});
+  const [newTweetPost, setNewTweetPost] = React.useState(false);
 
   useEffect(() => {
     fetch("/api/me/home-feed", {
@@ -20,10 +21,17 @@ export const TweetFeedProvider = ({ children }) => {
         setTweetsObjects({ ...data.tweetsById });
         setFeedStatus("iddle");
       });
-  }, []);
+
+    return function cleanup() {
+      setFeedStatus("loading");
+      setNewTweetPost(false);
+    };
+  }, [newTweetPost]);
 
   return (
-    <TweetFeedContext.Provider value={{ allTweets, tweetsObjects, feedStatus }}>
+    <TweetFeedContext.Provider
+      value={{ allTweets, tweetsObjects, feedStatus, setNewTweetPost }}
+    >
       {children}
     </TweetFeedContext.Provider>
   );

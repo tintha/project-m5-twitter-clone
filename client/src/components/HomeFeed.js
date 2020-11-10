@@ -8,13 +8,7 @@ const HomeFeed = (props) => {
 
   return (
     <Wrapper>
-      {status === "loading" ? (
-        <p>...loading</p>
-      ) : (
-        <>
-          <ContentTitle>Home Feed</ContentTitle>
-        </>
-      )}
+      {status === "loading" && <p>...loading</p>}
 
       {feedStatus === "loading" ? (
         <p>...loading</p>
@@ -32,11 +26,6 @@ const HomeFeed = (props) => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const ContentTitle = styled.div`
-  color: #000;
-  font-weight: bold;
 `;
 
 export default HomeFeed;
