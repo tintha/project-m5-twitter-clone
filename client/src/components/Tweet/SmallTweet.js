@@ -1,18 +1,26 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
 import { FiRepeat } from "react-icons/fi";
-import { TweetFeedContext } from "../TweetFeedsContext";
-import ActionBar from "./ActionBar";
-import Avatar from "./Avatar";
-import Media from "./Media";
+import ActionBar from "../Tweet/ActionBar";
+import Avatar from "../Tweet/Avatar";
+import Media from "../Tweet/Media";
 
-const Tweet = ({ tweetId }) => {
-  const { tweetsObjects } = useContext(TweetFeedContext);
-  const { id, status, timestamp, author, media, retweetFrom } = tweetsObjects[
-    tweetId
-  ];
+const SmallTweet = (props) => {
+  const {
+    tweetId,
+    retweetFrom,
+    author,
+    timestamp,
+    status,
+    media,
+    numLikes,
+    numRetweets,
+    isLiked,
+  } = props;
+
+  const [likedByUser, setLikedByUser] = useState(null);
 
   return (
     <>
@@ -33,13 +41,19 @@ const Tweet = ({ tweetId }) => {
               <Bold>{author.displayName}</Bold> @{author.handle}
             </Anchor>
             - {moment(timestamp).format("MMM Do")}
-            <Anchor to={`/tweet/${id}`} key={id}>
+            <Anchor to={`/tweet/${tweetId}`} key={tweetId}>
               <TweetContents>{status}</TweetContents>
               {media.length > 0 && (
                 <Media src={media[0].url} maxwidth={450} maxheight={250} />
               )}
-              <ActionBar />
             </Anchor>
+            <ActionBar
+              numLikes={numLikes}
+              numRetweets={numRetweets}
+              tweetId={tweetId}
+              likedByUser={isLiked}
+              setLikedByUser={setLikedByUser}
+            />
           </TweetContainer>
         </AvatarAndTweetContainer>
         <Divider />
@@ -92,4 +106,4 @@ const Anchor = styled(Link)`
   text-decoration: none;
 `;
 
-export default Tweet;
+export default SmallTweet;

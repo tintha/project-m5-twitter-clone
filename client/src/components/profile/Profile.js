@@ -4,12 +4,16 @@ import moment from "moment";
 import { FiMapPin, FiCalendar } from "react-icons/fi";
 import { ProfileContext } from "../ProfileContext";
 import Avatar from "../Tweet/Avatar";
-import ProfileTweets from "./ProfileTweets";
+import SmallTweet from "../Tweet/SmallTweet";
 
 const Profile = ({ currentUser }) => {
-  const { loadingProfile, loadingFeed, profileInfo, userFeed } = useContext(
-    ProfileContext
-  );
+  const {
+    loadingProfile,
+    loadingFeed,
+    profileInfo,
+    userFeed,
+    feedDetails,
+  } = useContext(ProfileContext);
 
   return (
     <>
@@ -47,7 +51,20 @@ const Profile = ({ currentUser }) => {
           <p>...loading</p>
         ) : (
           userFeed.map((tweet) => {
-            return <ProfileTweets key={tweet} tweetId={tweet} />;
+            return (
+              <SmallTweet
+                key={tweet}
+                tweetId={tweet}
+                retweetFrom={feedDetails[tweet].retweetFrom}
+                author={feedDetails[tweet].author}
+                timestamp={feedDetails[tweet].timestamp}
+                status={feedDetails[tweet].status}
+                media={feedDetails[tweet].media}
+                numLikes={feedDetails[tweet].numLikes}
+                numRetweets={feedDetails[tweet].numRetweets}
+                isLiked={feedDetails[tweet].isLiked}
+              />
+            );
           })
         )}
       </div>
