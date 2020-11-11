@@ -16,7 +16,7 @@ const rotate = keyframes`
 `;
 
 const Wrapper = styled(FiLoader)`
-  animation: ${rotate} 500ms linear infinite;
+  animation: ${rotate} 1s linear infinite;
 `;
 
 export default Loading;
