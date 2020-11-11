@@ -8,6 +8,7 @@ const ActionBar = (props) => {
   const [likedByUser, setLikedByUser] = useState(isLikedByUser);
 
   const handleToggleLike = (e) => {
+    e.stopPropagation();
     fetch(`/api/tweet/${tweetId}/like`, {
       method: "PUT",
       body: JSON.stringify({ like: !likedByUser }),
@@ -31,16 +32,24 @@ const ActionBar = (props) => {
 
   return (
     <Wrapper>
-      <FiMessageCircle />
+      <ActionButton tabIndex="0">
+        <FiMessageCircle />
+      </ActionButton>
       <ActionDiv>
-        <FiRepeat />
+        <ActionButton tabIndex="0">
+          <FiRepeat />
+        </ActionButton>
         {numRetweets > 0 && <Number>{numRetweets}</Number>}
       </ActionDiv>
       <ActionDiv>
-        <FiHeart className="heart-icon" onClick={(e) => handleToggleLike(e)} />
+        <ActionButton tabIndex="0">
+          <FiHeart onClick={(e) => handleToggleLike(e)} />
+        </ActionButton>
         {numberOfLikes > 0 && <Number>{numberOfLikes}</Number>}
       </ActionDiv>
-      <FiUpload />
+      <ActionButton tabIndex="0">
+        <FiUpload />
+      </ActionButton>
     </Wrapper>
   );
 };
@@ -61,6 +70,18 @@ const ActionDiv = styled.div`
 const Number = styled.span`
   font-size: 14px;
   margin-left: 4px;
+`;
+
+const ActionButton = styled.div`
+  display: block;
+
+  border: none;
+
+  cursor: pointer;
+
+  &:hover {
+    color: pink;
+  }
 `;
 
 export default ActionBar;

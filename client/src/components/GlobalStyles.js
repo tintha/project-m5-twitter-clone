@@ -59,8 +59,4 @@ export default createGlobalStyle`
         content: none;
     }
 
-.heart-icon:hover {
-    //just for testing
-    background-color: pink;
-}
 `;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
 import { FiRepeat } from "react-icons/fi";
@@ -20,9 +20,39 @@ const SmallTweet = (props) => {
     isLikedByUser,
   } = props;
 
+  let history = useHistory();
+
+  const handleTweetClick = (e) => {
+    history.push(`/tweet/${tweetId}`);
+  };
+
+  const handleProfileClick = (e) => {
+    e.stopPropagation();
+    history.push(`/${author.handle}`);
+  };
+
+  const handleTweetKeyPress = (e) => {
+    if (e.code === "Enter") {
+      e.preventDefault();
+      history.push(`/tweet/${tweetId}`);
+    }
+  };
+
+  const handleProfileKeyPress = (e) => {
+    if (e.code === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      history.push(`/${author.handle}`);
+    }
+  };
+
   return (
     <>
-      <Wrapper>
+      <Wrapper
+        tabIndex="0"
+        onClick={(e) => handleTweetClick(e)}
+        onKeyDown={(e) => handleTweetKeyPress(e)}
+      >
         <RetweetContainer>
           {retweetFrom && (
             <>
@@ -35,16 +65,18 @@ const SmallTweet = (props) => {
             <Avatar src={author.avatarSrc} width="50" />
           </AvatarContainer>
           <TweetContainer>
-            <Anchor to={`/${author.handle}`} key={author.handle}>
-              <Bold>{author.displayName}</Bold> @{author.handle}
-            </Anchor>
-            - {moment(timestamp).format("MMM Do")}
-            <Anchor to={`/tweet/${tweetId}`} key={tweetId}>
-              <TweetContents>{status}</TweetContents>
-              {media.length > 0 && (
-                <Media src={media[0].url} maxwidth={450} maxheight={250} />
-              )}
-            </Anchor>
+            <Bold
+              tabIndex="0"
+              onClick={(e) => handleProfileClick(e)}
+              onKeyDown={(e) => handleProfileKeyPress(e)}
+            >
+              {author.displayName}
+            </Bold>
+            @{author.handle}- {moment(timestamp).format("MMM Do")}
+            <TweetContents>{status}</TweetContents>
+            {media.length > 0 && (
+              <Media src={media[0].url} maxwidth={450} maxheight={250} />
+            )}
             <ActionBar
               numLikes={numLikes}
               numRetweets={numRetweets}
@@ -90,17 +122,17 @@ const TweetContents = styled.div`
   padding: 16px 0;
 `;
 
-const Bold = styled.span`
+const Bold = styled.div`
   font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    color: pink;
+  }
 `;
 
 const Divider = styled.div`
   height: 1px;
   background: rgb(230, 236, 240);
-`;
-
-const Anchor = styled(Link)`
-  text-decoration: none;
 `;
 
 export default SmallTweet;
