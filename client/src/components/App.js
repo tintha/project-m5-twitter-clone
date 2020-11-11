@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
-import HomeFeed from "./HomeFeed";
+import HomeFeed from "./home/HomeFeed";
 import Notifications from "./Notifications";
 import Bookmarks from "./Bookmarks";
 import TweetDetails from "./Tweet/TweetDetails";
 import Profile from "./profile/Profile";
 import Sidebar from "./Sidebar";
 
-import { CurrentUserContext } from "./CurrentUserContext";
-import { TweetFeedContext } from "./TweetFeedsContext";
-import { ProfileProvider } from "./ProfileContext";
+import { CurrentUserContext } from "./home/CurrentUserContext";
+import { TweetFeedContext } from "./home/TweetFeedsContext";
+import { ProfileProvider } from "./profile/ProfileContext";
 
 function App() {
   const { status, currentUser } = useContext(CurrentUserContext);

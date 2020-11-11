@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { TweetFeedContext } from "./TweetFeedsContext";
-import SmallTweet from "./Tweet/SmallTweet";
+import SmallTweet from "../Tweet/SmallTweet";
 import Form from "./Form";
 import { FiLoader } from "react-icons/fi";
-import UnknownError from "./UnknownError";
+import UnknownError from "../errors/UnknownError";
 
 const HomeFeed = (props) => {
   const { allTweets, feedStatus, status, setNewTweetPost } = props;

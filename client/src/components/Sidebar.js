@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { ReactComponent as Logo } from "../assets/logo.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { COLORS } from "../constants";
 import { FiHome, FiUser, FiBell, FiBookmark } from "react-icons/fi";
-import { CurrentUserContext } from "./CurrentUserContext";
+import { CurrentUserContext } from "./home/CurrentUserContext";
 
 const Sidebar = () => {
   const { currentUser } = useContext(CurrentUserContext);
   return (
     <Wrapper>
-      <Logo style={{ width: "40px" }} />
+      <Link to="/">
+        <Logo style={{ width: "40px" }} />
+      </Link>
 
       <SingleLinkContainer>
         <NavigationLink exact to="/">

@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/App";
 import GlobalStyles from "./components/GlobalStyles";
-import { CurrentUserProvider } from "./components/CurrentUserContext";
-import { TweetFeedProvider } from "./components/TweetFeedsContext";
+import { CurrentUserProvider } from "./components/home/CurrentUserContext";
+import { TweetFeedProvider } from "./components/home/TweetFeedsContext";
 
 ReactDOM.render(
   <React.StrictMode>

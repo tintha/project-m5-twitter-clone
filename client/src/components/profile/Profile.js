@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import moment from "moment";
 import { FiMapPin, FiCalendar, FiLink, FiLoader } from "react-icons/fi";
-import { ProfileContext } from "../ProfileContext";
+import { ProfileContext } from "./ProfileContext";
 import Avatar from "../Tweet/Avatar";
 import SmallTweet from "../Tweet/SmallTweet";
-import UnknownError from "../UnknownError";
+import UnknownError from "../errors/UnknownError";
 
 const Profile = ({ currentUser }) => {
   const {

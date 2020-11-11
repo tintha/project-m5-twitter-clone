@@ -7,7 +7,7 @@ import { FiLoader } from "react-icons/fi";
 import ActionBar from "./ActionBar";
 import Avatar from "./Avatar";
 import Media from "./Media";
-import UnknownError from "../UnknownError";
+import UnknownError from "../errors/UnknownError";
 
 const TweetDetails = () => {
   const params = useParams();
