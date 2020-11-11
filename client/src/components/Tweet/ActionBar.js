@@ -30,6 +30,14 @@ const ActionBar = (props) => {
       });
   };
 
+  const handleLikeKeyPress = (e) => {
+    if (e.code === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      handleToggleLike(e);
+    }
+  };
+
   return (
     <Wrapper>
       <ActionButton tabIndex="0">
@@ -42,8 +50,12 @@ const ActionBar = (props) => {
         {numRetweets > 0 && <Number>{numRetweets}</Number>}
       </ActionDiv>
       <ActionDiv>
-        <ActionButton tabIndex="0">
-          <FiHeart onClick={(e) => handleToggleLike(e)} />
+        <ActionButton
+          tabIndex="0"
+          onClick={(e) => handleToggleLike(e)}
+          onKeyDown={(e) => handleLikeKeyPress(e)}
+        >
+          <FiHeart />
         </ActionButton>
         {numberOfLikes > 0 && <Number>{numberOfLikes}</Number>}
       </ActionDiv>
