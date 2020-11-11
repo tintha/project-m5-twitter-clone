@@ -2,18 +2,23 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { TweetFeedContext } from "./TweetFeedsContext";
 import SmallTweet from "./Tweet/SmallTweet";
+import Form from "./Form";
+import { FiLoader } from "react-icons/fi";
+import UnknownError from "./UnknownError";
 
 const HomeFeed = (props) => {
-  const { allTweets, feedStatus, status } = props;
+  const { allTweets, feedStatus, status, setNewTweetPost } = props;
   const { tweetsObjects } = useContext(TweetFeedContext);
 
   return (
     <Wrapper>
-      {status === "loading" && <p>...loading</p>}
+      {status === "loading" && <FiLoader />}
+      {status === "error" && <UnknownError />}
+      {status === "success" && <Form setNewTweetPost={setNewTweetPost} />}
 
-      {feedStatus === "loading" ? (
-        <p>...loading</p>
-      ) : (
+      {feedStatus === "loading" && <FiLoader />}
+      {feedStatus === "error" && <UnknownError />}
+      {feedStatus === "success" && (
         <>
           {allTweets.map((tweet) => {
             return (

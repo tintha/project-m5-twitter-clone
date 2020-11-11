@@ -7,7 +7,7 @@ import Bookmarks from "./Bookmarks";
 import TweetDetails from "./Tweet/TweetDetails";
 import Profile from "./profile/Profile";
 import Sidebar from "./Sidebar";
-import Form from "./Form";
+
 import { CurrentUserContext } from "./CurrentUserContext";
 import { TweetFeedContext } from "./TweetFeedsContext";
 import { ProfileProvider } from "./ProfileContext";
@@ -26,11 +26,11 @@ function App() {
           <Switch>
             <Route exact path="/">
               <h1>Home</h1>
-              <Form setNewTweetPost={setNewTweetPost} />
               <HomeFeed
                 status={status}
                 allTweets={allTweets}
                 feedStatus={feedStatus}
+                setNewTweetPost={setNewTweetPost}
               />
             </Route>
             <Route exact path="/notifications">

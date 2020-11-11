@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
 import moment from "moment";
-import { FiMapPin, FiCalendar, FiLink } from "react-icons/fi";
+import { FiMapPin, FiCalendar, FiLink, FiLoader } from "react-icons/fi";
 import { ProfileContext } from "../ProfileContext";
 import Avatar from "../Tweet/Avatar";
 import SmallTweet from "../Tweet/SmallTweet";
+import UnknownError from "../UnknownError";
 
 const Profile = ({ currentUser }) => {
   const {
@@ -18,9 +18,9 @@ const Profile = ({ currentUser }) => {
   return (
     <>
       <div>
-        {loadingProfile === "loading" ? (
-          <p>...loading</p>
-        ) : (
+        {loadingProfile === "loading" && <FiLoader />}
+        {loadingProfile === "error" && <UnknownError />}
+        {loadingProfile === "success" && (
           <>
             <img src={profileInfo.bannerSrc} alt="" />
             <Avatar src={profileInfo.avatarSrc} width="100" alt="" />
@@ -60,9 +60,9 @@ const Profile = ({ currentUser }) => {
 
       <div>
         <h3>Tweets</h3>
-        {loadingFeed === "loading" ? (
-          <p>...loading</p>
-        ) : (
+        {loadingFeed === "loading" && <FiLoader />}
+        {loadingFeed === "error" && <UnknownError />}
+        {loadingFeed === "success" &&
           userFeed.map((tweet) => {
             return (
               <SmallTweet
@@ -78,16 +78,10 @@ const Profile = ({ currentUser }) => {
                 isLikedByUser={feedDetails[tweet].isLiked}
               />
             );
-          })
-        )}
+          })}
       </div>
     </>
   );
 };
-
-const Divider = styled.div`
-  height: 1px;
-  background: rgb(230, 236, 240);
-`;
 
 export default Profile;

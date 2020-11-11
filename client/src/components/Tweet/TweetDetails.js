@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import moment from "moment";
+import { FiLoader } from "react-icons/fi";
 import ActionBar from "./ActionBar";
 import Avatar from "./Avatar";
 import Media from "./Media";
+import UnknownError from "../UnknownError";
 
 const TweetDetails = () => {
   const params = useParams();
@@ -23,7 +25,10 @@ const TweetDetails = () => {
         .then((res) => res.json())
         .then((data) => {
           setTweetInfo({ ...data.tweet });
-          setLoading("iddle");
+          setLoading("success");
+        })
+        .catch((error) => {
+          setLoading("error");
         });
     }
 
@@ -34,9 +39,10 @@ const TweetDetails = () => {
 
   return (
     <Wrapper>
-      {loading === "loading" ? (
-        <p>...loading</p>
-      ) : (
+      {loading === "loading" && <FiLoader />}
+      {loading === "error" && <UnknownError />}
+
+      {loading === "success" && (
         <>
           <Avatar src={tweetInfo.author.avatarSrc} width="50" />
           <ProfileLink

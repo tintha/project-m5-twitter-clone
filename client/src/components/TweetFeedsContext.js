@@ -19,7 +19,10 @@ export const TweetFeedProvider = ({ children }) => {
       .then((data) => {
         setAllTweets([...data.tweetIds]);
         setTweetsObjects({ ...data.tweetsById });
-        setFeedStatus("iddle");
+        setFeedStatus("success");
+      })
+      .catch((error) => {
+        setFeedStatus("error");
       });
 
     return function cleanup() {

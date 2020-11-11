@@ -19,7 +19,10 @@ export const CurrentUserProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => {
         setCurrentUser(data.profile.handle);
-        setStatus("iddle");
+        setStatus("success");
+      })
+      .catch((error) => {
+        setStatus("error");
       });
   }, []);
 

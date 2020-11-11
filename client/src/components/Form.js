@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import PostFailed from "./PostFailed";
 
 const Form = (props) => {
   const { setNewTweetPost } = props;
   const [tweet, setTweet] = useState("");
   const [isDisabled, setDisabled] = useState(false);
+  const [isError, setIsError] = useState(false);
   const maxChar = 280;
   let charCount = maxChar - tweet.length;
 
@@ -36,6 +38,9 @@ const Form = (props) => {
           setTweet("");
           setNewTweetPost(true);
         }
+      })
+      .catch((error) => {
+        setIsError(true);
       });
   };
 
@@ -64,6 +69,7 @@ const Form = (props) => {
           </Button>
         </ButtonDiv>
       </form>
+      {isError && <PostFailed />}
     </Wrapper>
   );
 };

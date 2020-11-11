@@ -22,7 +22,10 @@ export const ProfileProvider = ({ children }) => {
         .then((res) => res.json())
         .then((data) => {
           setProfileInfo({ ...data.profile });
-          setLoadingProfile("iddle");
+          setLoadingProfile("success");
+        })
+        .catch((error) => {
+          setLoadingProfile("error");
         });
 
       fetch(`/api/${params.profile}/feed`, {
@@ -35,7 +38,10 @@ export const ProfileProvider = ({ children }) => {
         .then((data) => {
           setUserFeed([...data.tweetIds]);
           setFeedDetails({ ...data.tweetsById });
-          setLoadingFeed("iddle");
+          setLoadingFeed("success");
+        })
+        .catch((error) => {
+          setLoadingFeed("error");
         });
     }
 
