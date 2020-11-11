@@ -52,6 +52,7 @@ const SmallTweet = (props) => {
         tabIndex="0"
         onClick={(e) => handleTweetClick(e)}
         onKeyDown={(e) => handleTweetKeyPress(e)}
+        aria-label="View tweet"
       >
         <RetweetContainer>
           {retweetFrom && (
@@ -69,6 +70,7 @@ const SmallTweet = (props) => {
               tabIndex="0"
               onClick={(e) => handleProfileClick(e)}
               onKeyDown={(e) => handleProfileKeyPress(e)}
+              aria-label="View profile"
             >
               {author.displayName}
             </Bold>

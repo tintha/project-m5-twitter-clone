@@ -54,6 +54,7 @@ const ActionBar = (props) => {
           tabIndex="0"
           onClick={(e) => handleToggleLike(e)}
           onKeyDown={(e) => handleLikeKeyPress(e)}
+          aria-label="Like or unlike"
         >
           <FiHeart />
         </ActionButton>
