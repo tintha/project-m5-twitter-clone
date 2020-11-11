@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { TweetFeedContext } from "./TweetFeedsContext";
 import SmallTweet from "../Tweet/SmallTweet";
 import Form from "./Form";
-import { FiLoader } from "react-icons/fi";
+import Loading from "../Loading";
 import UnknownError from "../errors/UnknownError";
 
 const HomeFeed = (props) => {
@@ -12,11 +12,11 @@ const HomeFeed = (props) => {
 
   return (
     <Wrapper>
-      {status === "loading" && <FiLoader />}
+      {status === "loading" && <Loading />}
       {status === "error" && <UnknownError />}
       {status === "success" && <Form setNewTweetPost={setNewTweetPost} />}
 
-      {feedStatus === "loading" && <FiLoader />}
+      {feedStatus === "loading" && <Loading />}
       {feedStatus === "error" && <UnknownError />}
       {feedStatus === "success" && (
         <>

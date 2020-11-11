@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import moment from "moment";
-import { FiMapPin, FiCalendar, FiLink, FiLoader } from "react-icons/fi";
+import { FiMapPin, FiCalendar, FiLink } from "react-icons/fi";
 import { ProfileContext } from "./ProfileContext";
 import Avatar from "../Tweet/Avatar";
 import SmallTweet from "../Tweet/SmallTweet";
 import UnknownError from "../errors/UnknownError";
+import Loading from "../Loading";
 
 const Profile = ({ currentUser }) => {
   const {
@@ -18,7 +19,7 @@ const Profile = ({ currentUser }) => {
   return (
     <>
       <div>
-        {loadingProfile === "loading" && <FiLoader />}
+        {loadingProfile === "loading" && <Loading />}
         {loadingProfile === "error" && <UnknownError />}
         {loadingProfile === "success" && (
           <>
@@ -60,7 +61,7 @@ const Profile = ({ currentUser }) => {
 
       <div>
         <h3>Tweets</h3>
-        {loadingFeed === "loading" && <FiLoader />}
+        {loadingFeed === "loading" && <Loading />}
         {loadingFeed === "error" && <UnknownError />}
         {loadingFeed === "success" &&
           userFeed.map((tweet) => {

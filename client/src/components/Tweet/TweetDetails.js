@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import moment from "moment";
-import { FiLoader } from "react-icons/fi";
 import ActionBar from "./ActionBar";
 import Avatar from "./Avatar";
 import Media from "./Media";
 import UnknownError from "../errors/UnknownError";
+import loading from "../Loading";
+import Loading from "../Loading";
 
 const TweetDetails = () => {
   const params = useParams();
@@ -39,7 +40,7 @@ const TweetDetails = () => {
 
   return (
     <Wrapper>
-      {loading === "loading" && <FiLoader />}
+      {loading === "loading" && <Loading />}
       {loading === "error" && <UnknownError />}
 
       {loading === "success" && (
