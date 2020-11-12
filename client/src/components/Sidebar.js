@@ -13,7 +13,6 @@ const Sidebar = () => {
       <Link to="/">
         <Logo style={{ width: "40px" }} />
       </Link>
-
       <SingleLinkContainer>
         <NavigationLink exact to="/">
           <FiHome />
@@ -42,9 +41,7 @@ const Sidebar = () => {
   );
 };
 
-const Wrapper = styled.div`
-  width: 160px;
-`;
+const Wrapper = styled.div``;
 
 const SingleLinkContainer = styled.div`
   display: flex;

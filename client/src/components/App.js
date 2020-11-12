@@ -68,7 +68,8 @@ const Main = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid ${COLORS.grayBorder};
+  border-left: 1px solid ${COLORS.grayBorder};
+  border-right: 1px solid ${COLORS.grayBorder};
   width: 630px;
 `;
 

@@ -95,7 +95,7 @@ const TweetDetails = () => {
             <MediaWrapper>
               <Media
                 src={tweetInfo.media[0].url}
-                maxwidth={600}
+                maxwidth={580}
                 maxheight={400}
               />
             </MediaWrapper>

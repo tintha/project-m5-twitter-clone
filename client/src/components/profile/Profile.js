@@ -20,96 +20,94 @@ const Profile = ({ currentUser }) => {
   } = useContext(ProfileContext);
 
   return (
-    <>
-      <div>
-        {loadingProfile === "loading" && <Loading />}
-        {loadingProfile === "error" && <UnknownError />}
-        {loadingProfile === "success" && (
-          <>
-            <Banner bannerSrc={profileInfo.bannerSrc}>
-              <AvatarDiv>
-                <Avatar src={profileInfo.avatarSrc} width="100" alt="" />
-              </AvatarDiv>
-            </Banner>
+    <ProfileWholeContainer>
+      {loadingProfile === "loading" && <Loading />}
+      {loadingProfile === "error" && <UnknownError />}
+      {loadingProfile === "success" && (
+        <>
+          <Banner bannerSrc={profileInfo.bannerSrc}>
+            <AvatarDiv>
+              <Avatar src={profileInfo.avatarSrc} width="100" alt="" />
+            </AvatarDiv>
+          </Banner>
 
-            <FollowButtonDiv>
+          <FollowButtonDiv>
+            {profileInfo.handle !== currentUser &&
+              (profileInfo.isBeingFollowedByYou ? (
+                <FollowButton>Following</FollowButton>
+              ) : (
+                <FollowButton>Follow</FollowButton>
+              ))}
+          </FollowButtonDiv>
+          <ProfileInfos>
+            <DisplayName>{profileInfo.displayName}</DisplayName>
+            <Handle>
+              @{profileInfo.handle}
               {profileInfo.handle !== currentUser &&
-                (profileInfo.isBeingFollowedByYou ? (
-                  <FollowButton>Following</FollowButton>
-                ) : (
-                  <FollowButton>Follow</FollowButton>
-                ))}
-            </FollowButtonDiv>
-            <ProfileInfos>
-              <DisplayName>{profileInfo.displayName}</DisplayName>
-              <Handle>
-                @{profileInfo.handle}
-                {profileInfo.handle !== currentUser &&
-                  profileInfo.isFollowingYou && (
-                    <FollowsYou>Follows you</FollowsYou>
-                  )}
-              </Handle>
-              <Bio>{profileInfo.bio}</Bio>
-              <MoreDetails>
-                {profileInfo.location && (
-                  <Location>
-                    <FiMapPin />
-                    <OptionalDetails>{profileInfo.location}</OptionalDetails>
-                  </Location>
+                profileInfo.isFollowingYou && (
+                  <FollowsYou>Follows you</FollowsYou>
                 )}
-                {profileInfo.url && (
-                  <Website>
-                    <FiLink />
-                    <OptionalDetails>{profileInfo.url}</OptionalDetails>
-                  </Website>
-                )}
-                <Joined>
-                  <FiCalendar />
-                  <OptionalDetails>
-                    Joined {moment(profileInfo.joined).format("MMMM YYYY")}
-                  </OptionalDetails>
-                </Joined>
-              </MoreDetails>
-              <Followers>
-                <FollowingFollowers>
-                  <Bold>{profileInfo.numFollowing}</Bold>
-                  <OptionalDetails>Following</OptionalDetails>
-                </FollowingFollowers>
-                <FollowingFollowers>
-                  <Bold>{profileInfo.numFollowers}</Bold>
-                  <OptionalDetails>Followers</OptionalDetails>
-                </FollowingFollowers>
-              </Followers>
-            </ProfileInfos>
-          </>
-        )}
-      </div>
+            </Handle>
+            <Bio>{profileInfo.bio}</Bio>
+            <MoreDetails>
+              {profileInfo.location && (
+                <Location>
+                  <FiMapPin />
+                  <OptionalDetails>{profileInfo.location}</OptionalDetails>
+                </Location>
+              )}
+              {profileInfo.url && (
+                <Website>
+                  <FiLink />
+                  <OptionalDetails>{profileInfo.url}</OptionalDetails>
+                </Website>
+              )}
+              <Joined>
+                <FiCalendar />
+                <OptionalDetails>
+                  Joined {moment(profileInfo.joined).format("MMMM YYYY")}
+                </OptionalDetails>
+              </Joined>
+            </MoreDetails>
+            <Followers>
+              <FollowingFollowers>
+                <Bold>{profileInfo.numFollowing}</Bold>
+                <OptionalDetails>Following</OptionalDetails>
+              </FollowingFollowers>
+              <FollowingFollowers>
+                <Bold>{profileInfo.numFollowers}</Bold>
+                <OptionalDetails>Followers</OptionalDetails>
+              </FollowingFollowers>
+            </Followers>
+          </ProfileInfos>
+        </>
+      )}
 
-      <div>
-        <TabLinks currentProfile={profileInfo.handle}></TabLinks>
-        {loadingFeed === "loading" && <Loading />}
-        {loadingFeed === "error" && <UnknownError />}
-        {loadingFeed === "success" &&
-          userFeed.map((tweet) => {
-            return (
-              <SmallTweet
-                key={tweet}
-                tweetId={tweet}
-                retweetFrom={feedDetails[tweet].retweetFrom}
-                author={feedDetails[tweet].author}
-                timestamp={feedDetails[tweet].timestamp}
-                status={feedDetails[tweet].status}
-                media={feedDetails[tweet].media}
-                numLikes={feedDetails[tweet].numLikes}
-                numRetweets={feedDetails[tweet].numRetweets}
-                isLikedByUser={feedDetails[tweet].isLiked}
-              />
-            );
-          })}
-      </div>
-    </>
+      <TabLinks currentProfile={profileInfo.handle}></TabLinks>
+      {loadingFeed === "loading" && <Loading />}
+      {loadingFeed === "error" && <UnknownError />}
+      {loadingFeed === "success" &&
+        userFeed.map((tweet) => {
+          return (
+            <SmallTweet
+              key={tweet}
+              tweetId={tweet}
+              retweetFrom={feedDetails[tweet].retweetFrom}
+              author={feedDetails[tweet].author}
+              timestamp={feedDetails[tweet].timestamp}
+              status={feedDetails[tweet].status}
+              media={feedDetails[tweet].media}
+              numLikes={feedDetails[tweet].numLikes}
+              numRetweets={feedDetails[tweet].numRetweets}
+              isLikedByUser={feedDetails[tweet].isLiked}
+            />
+          );
+        })}
+    </ProfileWholeContainer>
   );
 };
+
+const ProfileWholeContainer = styled.div``;
 
 const ProfileInfos = styled.div`
   padding: 20px;

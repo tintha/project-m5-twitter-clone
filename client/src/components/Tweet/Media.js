@@ -5,15 +5,6 @@ const Media = ({ src, maxwidth, maxheight }) => {
   return <Img src={`${src}`} maxwidth={maxwidth} maxheight={maxheight} />;
 };
 
-// const Img = styled.img`
-//   width: ${(props) => props.maxwidth}px;
-//   //max-height: ${(props) => props.maxheight}px;
-//   height: 250px;
-//   border-radius: 1rem;
-//   object-fit: cover;
-//   object-position: 0 0;
-// `;
-
 const Img = styled.div`
   width: ${(props) => props.maxwidth}px;
   height: ${(props) => props.maxheight}px;

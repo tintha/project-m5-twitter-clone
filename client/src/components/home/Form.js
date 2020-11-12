@@ -61,6 +61,7 @@ const Form = (props) => {
             onChange={handleChange}
           />
           <ButtonDiv>
+            {isError && <PostFailed />}
             {charCount > 55 && <CharCount>{charCount}</CharCount>}
             {charCount >= 0 && charCount <= 55 && (
               <CharCount className="yellow">{charCount}</CharCount>
@@ -78,7 +79,6 @@ const Form = (props) => {
           </ButtonDiv>
         </form>
       </FormDiv>
-      {isError && <PostFailed />}
     </Wrapper>
   );
 };
@@ -107,6 +107,7 @@ const TweetInput = styled.textarea`
   outline: none;
   resize: none;
   overflow: hidden;
+  font-size: 1.5rem;
 `;
 
 const ButtonDiv = styled.div`
