@@ -3,7 +3,7 @@ import { FiLoader } from "react-icons/fi";
 import styled, { keyframes } from "styled-components";
 
 const Loading = () => {
-  return <Wrapper />;
+  return <Wrapper size={30} />;
 };
 
 const rotate = keyframes`
@@ -16,6 +16,9 @@ const rotate = keyframes`
 `;
 
 const Wrapper = styled(FiLoader)`
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
   animation: ${rotate} 1s linear infinite;
 `;
 

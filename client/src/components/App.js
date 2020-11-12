@@ -7,13 +7,16 @@ import Bookmarks from "./Bookmarks";
 import TweetDetails from "./Tweet/TweetDetails";
 import Profile from "./profile/Profile";
 import Sidebar from "./Sidebar";
+import { COLORS } from "../constants";
 
 import { CurrentUserContext } from "./home/CurrentUserContext";
 import { TweetFeedContext } from "./home/TweetFeedsContext";
 import { ProfileProvider } from "./profile/ProfileContext";
 
 function App() {
-  const { status, currentUser } = useContext(CurrentUserContext);
+  const { status, currentUser, currentUserAvatar } = useContext(
+    CurrentUserContext
+  );
   const { allTweets, feedStatus, setNewTweetPost } = useContext(
     TweetFeedContext
   );
@@ -25,8 +28,8 @@ function App() {
         <Content>
           <Switch>
             <Route exact path="/">
-              <h1>Home</h1>
               <HomeFeed
+                currentUserAvatar={currentUserAvatar}
                 status={status}
                 allTweets={allTweets}
                 feedStatus={feedStatus}
@@ -56,8 +59,17 @@ function App() {
 
 const Main = styled.div`
   display: flex;
+  justify-content: center;
+  width: 790px;
+  margin: auto;
+  height: 100%;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid ${COLORS.grayBorder};
+  width: 630px;
+`;
 
 export default App;

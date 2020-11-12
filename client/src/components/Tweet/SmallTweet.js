@@ -6,6 +6,7 @@ import { FiRepeat } from "react-icons/fi";
 import ActionBar from "../Tweet/ActionBar";
 import Avatar from "../Tweet/Avatar";
 import Media from "../Tweet/Media";
+import { COLORS } from "../../constants";
 
 const SmallTweet = (props) => {
   const {
@@ -67,19 +68,25 @@ const SmallTweet = (props) => {
             <Avatar src={author.avatarSrc} width="50" />
           </AvatarContainer>
           <TweetContainer>
-            <Bold
-              tabIndex="0"
-              onClick={(e) => handleProfileClick(e)}
-              onKeyDown={(e) => handleProfileKeyPress(e)}
-              aria-label="View profile"
-              role="button"
-            >
-              {author.displayName}
-            </Bold>
-            @{author.handle}- {moment(timestamp).format("MMM Do")}
+            <Header>
+              <Bold
+                tabIndex="0"
+                onClick={(e) => handleProfileClick(e)}
+                onKeyDown={(e) => handleProfileKeyPress(e)}
+                aria-label="View profile"
+                role="button"
+              >
+                {author.displayName}
+              </Bold>
+              <HandleAndDate>
+                <p>
+                  @{author.handle} · {moment(timestamp).format("MMM Do")}
+                </p>
+              </HandleAndDate>
+            </Header>
             <TweetContents>{status}</TweetContents>
             {media.length > 0 && (
-              <Media src={media[0].url} maxwidth={450} maxheight={250} />
+              <Media src={media[0].url} maxwidth={508} maxheight={270} />
             )}
             <ActionBar
               numLikes={numLikes}
@@ -89,11 +96,30 @@ const SmallTweet = (props) => {
             />
           </TweetContainer>
         </AvatarAndTweetContainer>
-        <Divider />
       </Wrapper>
     </>
   );
 };
+
+const Wrapper = styled.div`
+  background: white;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid ${COLORS.grayBorder};
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const RetweetContainer = styled.div`
+  padding-left: 40px;
+  padding-bottom: 10px;
+`;
 
 const AvatarAndTweetContainer = styled.div`
   display: flex;
@@ -105,38 +131,25 @@ const AvatarContainer = styled.div`
 
 const TweetContainer = styled.div``;
 
-const RetweetContainer = styled.div`
-  padding-left: 40px;
-  padding-bottom: 10px;
-`;
-
-const Wrapper = styled.div`
-  background: white;
-  padding: 16px;
-  max-width: 500px;
-  text-align: left;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", sans-serif;
+const Header = styled.div`
   display: flex;
-  flex-direction: column;
 `;
 
-const TweetContents = styled.div`
-  font-size: 16px;
-  padding: 16px 0;
+const HandleAndDate = styled.div`
+  margin-left: 10px;
 `;
 
 const Bold = styled.div`
   font-weight: bold;
   &:hover {
     cursor: pointer;
-    color: pink;
+    text-decoration: underline;
   }
 `;
 
-const Divider = styled.div`
-  height: 1px;
-  background: rgb(230, 236, 240);
+const TweetContents = styled.div`
+  font-size: 16px;
+  padding: 16px 0;
 `;
 
 export default SmallTweet;

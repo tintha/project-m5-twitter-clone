@@ -42,7 +42,9 @@ const Sidebar = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 160px;
+`;
 
 const SingleLinkContainer = styled.div`
   display: flex;

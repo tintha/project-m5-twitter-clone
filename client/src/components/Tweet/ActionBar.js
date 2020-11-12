@@ -38,13 +38,40 @@ const ActionBar = (props) => {
     }
   };
 
+  const handleClickVoid = (e) => {
+    e.stopPropagation();
+    console.log("Does nothing for now");
+  };
+
+  const handleKeyDownVoid = (e) => {
+    if (e.code === "Enter") {
+      e.preventDefault();
+      e.stopPropagation();
+      handleClickVoid(e);
+    }
+  };
+
   return (
     <Wrapper>
-      <ActionButton tabIndex="0">
-        <FiMessageCircle />
-      </ActionButton>
       <ActionDiv>
-        <ActionButton tabIndex="0">
+        <ActionButton
+          tabIndex="0"
+          onClick={(e) => handleClickVoid(e)}
+          onKeyDown={(e) => handleKeyDownVoid(e)}
+          aria-label="Reply to tweet"
+          role="button"
+        >
+          <FiMessageCircle />
+        </ActionButton>
+      </ActionDiv>
+      <ActionDiv>
+        <ActionButton
+          tabIndex="0"
+          onClick={(e) => handleClickVoid(e)}
+          onKeyDown={(e) => handleKeyDownVoid(e)}
+          aria-label="Retweet"
+          role="button"
+        >
           <FiRepeat />
         </ActionButton>
         {numRetweets > 0 && <Number>{numRetweets}</Number>}
@@ -61,9 +88,17 @@ const ActionBar = (props) => {
         </ActionButton>
         {numberOfLikes > 0 && <Number>{numberOfLikes}</Number>}
       </ActionDiv>
-      <ActionButton tabIndex="0">
-        <FiUpload />
-      </ActionButton>
+      <ActionDiv>
+        <ActionButton
+          tabIndex="0"
+          onClick={(e) => handleClickVoid(e)}
+          onKeyDown={(e) => handleKeyDownVoid(e)}
+          aria-label="Share tweet"
+          role="button"
+        >
+          <FiUpload />
+        </ActionButton>
+      </ActionDiv>
     </Wrapper>
   );
 };
@@ -79,6 +114,7 @@ const Wrapper = styled.div`
 const ActionDiv = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 `;
 
 const Number = styled.span`
@@ -88,11 +124,8 @@ const Number = styled.span`
 
 const ActionButton = styled.div`
   display: block;
-
   border: none;
-
   cursor: pointer;
-
   &:hover {
     color: pink;
   }
