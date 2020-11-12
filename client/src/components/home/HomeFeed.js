@@ -30,6 +30,7 @@ const HomeFeed = (props) => {
           />
 
           {feedStatus === "loading" && <Loading />}
+          {feedStatus === "error" && <UnknownError />}
           {feedStatus === "success" && (
             <>
               {allTweets.map((tweet) => {

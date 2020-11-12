@@ -87,9 +87,11 @@ const Profile = ({ currentUser }) => {
         </>
       )}
 
-      <TabLinks currentProfile={profileInfo.handle}></TabLinks>
       {loadingFeed === "loading" && <Loading />}
       {loadingFeed === "error" && <UnknownError />}
+      {loadingFeed === "success" && (
+        <TabLinks currentProfile={profileInfo.handle}></TabLinks>
+      )}
       {loadingFeed === "success" &&
         userFeed.map((tweet) => {
           return (

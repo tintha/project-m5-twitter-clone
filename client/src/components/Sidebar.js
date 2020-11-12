@@ -5,16 +5,19 @@ import { NavLink, Link } from "react-router-dom";
 import { COLORS } from "../constants";
 import { FiHome, FiUser, FiBell, FiBookmark } from "react-icons/fi";
 import { CurrentUserContext } from "./home/CurrentUserContext";
+import { TweetFeedContext } from "./home/TweetFeedsContext";
 
 const Sidebar = () => {
   const { currentUser } = useContext(CurrentUserContext);
+  const { setNewTweetPost } = useContext(TweetFeedContext);
+
   return (
     <Wrapper>
       <Link to="/">
         <Logo style={{ width: "40px" }} />
       </Link>
       <SingleLinkContainer>
-        <NavigationLink exact to="/">
+        <NavigationLink exact to="/" onClick={() => setNewTweetPost(true)}>
           <FiHome />
           <LinkText>Home</LinkText>
         </NavigationLink>

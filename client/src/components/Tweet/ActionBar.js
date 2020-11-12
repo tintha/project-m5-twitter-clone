@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FiMessageCircle, FiRepeat, FiUpload, FiHeart } from "react-icons/fi";
-import { COLORS } from "../../constants";
 import LikeButton from "./LikeButton";
 
 const ActionBar = (props) => {
-  const { tweetId, numLikes, numRetweets, isLikedByUser, retweetFrom } = props;
+  const { tweetId, numLikes, numRetweets, isLikedByUser } = props;
   const [numberOfLikes, setNumberOfLikes] = useState(numLikes);
   const [likedByUser, setLikedByUser] = useState(isLikedByUser);
-  const [retweeted, setRetweeted] = useState(false);
-  useEffect(() => {
-    retweetFrom && console.log(retweetFrom.handle);
-  }, [retweetFrom]);
 
   const handleToggleLike = (e) => {
     e.stopPropagation();
@@ -66,6 +61,8 @@ const ActionBar = (props) => {
           onKeyDown={(e) => handleKeyDownVoid(e)}
           aria-label="Reply to tweet"
           role="button"
+          color="#b8e6f5"
+          darkcolor="#0c7f96"
         >
           <FiMessageCircle />
         </ActionButton>
@@ -77,6 +74,8 @@ const ActionBar = (props) => {
           onKeyDown={(e) => handleKeyDownVoid(e)}
           aria-label="Retweet"
           role="button"
+          color="#b5ebb6"
+          darkcolor="#759c5f"
         >
           <FiRepeat />
         </ActionButton>
@@ -89,8 +88,15 @@ const ActionBar = (props) => {
           onKeyDown={(e) => handleLikeKeyPress(e)}
           aria-label="Like or unlike"
           role="button"
+          color="#f5bae2"
+          darkcolor="#a12561"
         >
-          <FiHeart />
+          {likedByUser ? (
+            <FiHeart fill="#f0226a" stroke="#f0226a" style={{ zIndex: 1 }} />
+          ) : (
+            <FiHeart />
+          )}
+          {likedByUser && <LikeButton />}
         </ActionButton>
         {numberOfLikes > 0 && <Number>{numberOfLikes}</Number>}
       </ActionDiv>
@@ -101,7 +107,8 @@ const ActionBar = (props) => {
           onKeyDown={(e) => handleKeyDownVoid(e)}
           aria-label="Share tweet"
           role="button"
-          className="like-btn"
+          color="#edb47e"
+          darkcolor="#8c5826"
         >
           <FiUpload />
         </ActionButton>
@@ -130,20 +137,24 @@ const Number = styled.span`
 `;
 
 const ActionButton = styled.div`
-  display: block;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 35px;
   border: none;
   border-radius: 50%;
   padding: 10px;
   border: none;
   cursor: pointer;
   &:hover {
-    color: #fff;
-    background-color: ${COLORS.secondary};
+    color: ${(props) => props.darkcolor};
+    background-color: ${(props) => props.color};
   }
   &:focus {
-    color: #fff;
-    background-color: ${COLORS.secondary};
     outline: none;
+    background-color: ${(props) => props.color};
   }
 `;
 

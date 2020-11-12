@@ -1,26 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { FiHeart } from "react-icons/fi";
-import { COLORS } from "../../constants";
 
-const LikeButton = (props) => {
-  const { handleToggleLike, handleLikeKeyPress, isLikedByUser } = props;
-  console.log(isLikedByUser);
-  return (
-    <Wrapper
-      tabIndex="0"
-      onClick={(e) => handleToggleLike(e)}
-      onKeyDown={(e) => handleLikeKeyPress(e)}
-      aria-label="Like or unlike"
-      role="button"
-    >
-      {isLikedByUser ? (
-        <FiHeart fill="#f0226a" stroke="#f0226a" />
-      ) : (
-        <FiHeart />
-      )}
-    </Wrapper>
-  );
+const LikeButton = () => {
+  return <Wrapper />;
 };
 
 const scale = keyframes`
@@ -28,45 +10,37 @@ const scale = keyframes`
     transform: scale(0);
   }
   to {
-    transform: scale(1);
+    transform: scale(1.5);
   }
+`;
+
+const fade = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+const colorChange = keyframes`
+from {
+  background-color: #3b041e;
+}
+to {
+  background-color: #db1f78;
+}
 `;
 
 const Wrapper = styled.div`
-  display: block;
-  border: none;
+  background-color: none;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    color: #fff;
-    background-color: pink;
-  }
-  &:focus {
-    color: #fff;
-    background-color: pink;
-    outline: none;
-  }
-`;
-
-const Animate = styled.div`
-  display: block;
-  border: none;
-  border-radius: 50%;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    color: #fff;
-    background-color: pink;
-    animation: ${scale} 1s;
-  }
-  &:focus {
-    color: #fff;
-    background-color: pink;
-    outline: none;
-  }
+  animation: ${scale} 500ms, ${fade} 500ms forwards, ${colorChange} 500ms;
 `;
 
 export default LikeButton;
