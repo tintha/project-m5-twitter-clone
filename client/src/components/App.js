@@ -62,7 +62,7 @@ const Main = styled.div`
   justify-content: center;
   width: 790px;
   margin: auto;
-  height: 100%;
+  min-height: 100vh;
 `;
 
 const Content = styled.div`

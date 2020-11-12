@@ -13,8 +13,9 @@ export default createGlobalStyle`
     text {
         font-family: sans-serif;
     }
-    html, body {
-        max-width: 100vw;
+   
+    html {
+        overflow-y: scroll;
     }
     /* http://meyerweb.com/eric/tools/css/reset/
         v2.0 | 20110126

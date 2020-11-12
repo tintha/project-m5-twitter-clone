@@ -33,7 +33,12 @@ export const TweetFeedProvider = ({ children }) => {
 
   return (
     <TweetFeedContext.Provider
-      value={{ allTweets, tweetsObjects, feedStatus, setNewTweetPost }}
+      value={{
+        allTweets,
+        tweetsObjects,
+        feedStatus,
+        setNewTweetPost,
+      }}
     >
       {children}
     </TweetFeedContext.Provider>

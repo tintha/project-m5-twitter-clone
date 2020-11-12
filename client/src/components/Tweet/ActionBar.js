@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { FiMessageCircle, FiRepeat, FiHeart, FiUpload } from "react-icons/fi";
+import { FiMessageCircle, FiRepeat, FiUpload, FiHeart } from "react-icons/fi";
+import { COLORS } from "../../constants";
+import LikeButton from "./LikeButton";
 
 const ActionBar = (props) => {
-  const { tweetId, numLikes, numRetweets, isLikedByUser } = props;
+  const { tweetId, numLikes, numRetweets, isLikedByUser, retweetFrom } = props;
   const [numberOfLikes, setNumberOfLikes] = useState(numLikes);
   const [likedByUser, setLikedByUser] = useState(isLikedByUser);
+  const [retweeted, setRetweeted] = useState(false);
+  useEffect(() => {
+    retweetFrom && console.log(retweetFrom.handle);
+  }, [retweetFrom]);
 
   const handleToggleLike = (e) => {
     e.stopPropagation();
@@ -95,6 +101,7 @@ const ActionBar = (props) => {
           onKeyDown={(e) => handleKeyDownVoid(e)}
           aria-label="Share tweet"
           role="button"
+          className="like-btn"
         >
           <FiUpload />
         </ActionButton>
@@ -125,9 +132,18 @@ const Number = styled.span`
 const ActionButton = styled.div`
   display: block;
   border: none;
+  border-radius: 50%;
+  padding: 10px;
+  border: none;
   cursor: pointer;
   &:hover {
-    color: pink;
+    color: #fff;
+    background-color: ${COLORS.secondary};
+  }
+  &:focus {
+    color: #fff;
+    background-color: ${COLORS.secondary};
+    outline: none;
   }
 `;
 

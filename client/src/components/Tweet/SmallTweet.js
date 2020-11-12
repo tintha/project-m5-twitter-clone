@@ -79,9 +79,7 @@ const SmallTweet = (props) => {
                 {author.displayName}
               </Bold>
               <HandleAndDate>
-                <p>
-                  @{author.handle} · {moment(timestamp).format("MMM Do")}
-                </p>
+                @{author.handle} · {moment(timestamp).format("MMM Do")}
               </HandleAndDate>
             </Header>
             <TweetContents>{status}</TweetContents>
@@ -93,6 +91,7 @@ const SmallTweet = (props) => {
               numRetweets={numRetweets}
               tweetId={tweetId}
               isLikedByUser={isLikedByUser}
+              retweetFrom={retweetFrom}
             />
           </TweetContainer>
         </AvatarAndTweetContainer>
@@ -149,7 +148,8 @@ const Bold = styled.div`
 
 const TweetContents = styled.div`
   font-size: 16px;
-  padding: 16px 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 export default SmallTweet;

@@ -41,7 +41,9 @@ const Sidebar = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  float: left;
+`;
 
 const SingleLinkContainer = styled.div`
   display: flex;

@@ -97,6 +97,7 @@ const TweetDetails = () => {
                 src={tweetInfo.media[0].url}
                 maxwidth={580}
                 maxheight={400}
+                alt={`${tweetInfo.author.handle} avatar`}
               />
             </MediaWrapper>
           )}
@@ -112,6 +113,7 @@ const TweetDetails = () => {
               numRetweets={tweetInfo.numRetweets}
               tweetId={params.tweetId}
               isLikedByUser={tweetInfo.isLiked}
+              retweetFrom={tweetInfo.retweetFrom}
             />
           </CenteredBart>
         </TweetWrapper>

@@ -27,7 +27,11 @@ const Profile = ({ currentUser }) => {
         <>
           <Banner bannerSrc={profileInfo.bannerSrc}>
             <AvatarDiv>
-              <Avatar src={profileInfo.avatarSrc} width="100" alt="" />
+              <Avatar
+                src={profileInfo.avatarSrc}
+                width="100"
+                alt={`${profileInfo.handle} avatar`}
+              />
             </AvatarDiv>
           </Banner>
 
@@ -107,7 +111,10 @@ const Profile = ({ currentUser }) => {
   );
 };
 
-const ProfileWholeContainer = styled.div``;
+const ProfileWholeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const ProfileInfos = styled.div`
   padding: 20px;
