@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import styled from "styled-components";
 import { FiMapPin, FiCalendar, FiLink } from "react-icons/fi";
@@ -18,6 +18,56 @@ const Profile = ({ currentUser }) => {
     userFeed,
     feedDetails,
   } = useContext(ProfileContext);
+  const [numberFollowing, setNumberFollowing] = useState(null);
+  const [numberFollower, setNumberFollowers] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(null);
+  useEffect(() => {
+    if (loadingFeed === "success") {
+      setNumberFollowing(profileInfo.numFollowing);
+      setNumberFollowers(profileInfo.numFollowers);
+      setIsFollowing(profileInfo.isBeingFollowedByYou);
+    }
+  }, [loadingFeed]);
+
+  const handleClickFollow = (e) => {
+    fetch(`/api/${profileInfo.handle}/follow`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((resp) => {
+        if (resp.success) {
+          setNumberFollowers(numberFollower + 1);
+          setIsFollowing(!isFollowing);
+          console.log(resp.success);
+        } else if (resp.error) {
+          console.log(resp.error);
+        }
+      });
+  };
+
+  const handleClickUnfollow = (e) => {
+    fetch(`/api/${profileInfo.handle}/unfollow`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((resp) => {
+        if (resp.success) {
+          setNumberFollowers(numberFollower - 1);
+          setIsFollowing(!isFollowing);
+          console.log(resp.success);
+        } else if (resp.error) {
+          console.log(resp.error);
+        }
+      });
+  };
 
   return (
     <ProfileWholeContainer>
@@ -37,10 +87,14 @@ const Profile = ({ currentUser }) => {
 
           <FollowButtonDiv>
             {profileInfo.handle !== currentUser &&
-              (profileInfo.isBeingFollowedByYou ? (
-                <FollowButton>Following</FollowButton>
+              (isFollowing ? (
+                <FollowingButton onClick={() => handleClickUnfollow()}>
+                  Following
+                </FollowingButton>
               ) : (
-                <FollowButton>Follow</FollowButton>
+                <FollowButton onClick={() => handleClickFollow()}>
+                  Follow
+                </FollowButton>
               ))}
           </FollowButtonDiv>
           <ProfileInfos>
@@ -75,11 +129,11 @@ const Profile = ({ currentUser }) => {
             </MoreDetails>
             <Followers>
               <FollowingFollowers>
-                <Bold>{profileInfo.numFollowing}</Bold>
+                <Bold>{numberFollowing}</Bold>
                 <OptionalDetails>Following</OptionalDetails>
               </FollowingFollowers>
               <FollowingFollowers>
-                <Bold>{profileInfo.numFollowers}</Bold>
+                <Bold>{numberFollower}</Bold>
                 <OptionalDetails>Followers</OptionalDetails>
               </FollowingFollowers>
             </Followers>
@@ -151,6 +205,23 @@ const FollowButtonDiv = styled.div`
 `;
 
 const FollowButton = styled.button`
+  background-color: #fff;
+  color: ${COLORS.primary};
+  padding: 6px 16px 6px 16px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid ${COLORS.primary};
+  cursor: pointer;
+  margin-right: 10px;
+  outline: none;
+  &:hover {
+    color: #fff;
+    background-color: ${COLORS.primary};
+  }
+`;
+
+const FollowingButton = styled.button`
   background-color: ${COLORS.primary};
   color: #fff;
   padding: 6px 16px 6px 16px;
@@ -160,6 +231,11 @@ const FollowButton = styled.button`
   border: none;
   cursor: pointer;
   margin-right: 10px;
+  border: 1px solid ${COLORS.primary};
+  &:hover {
+    color: ${COLORS.primary};
+    background-color: #fff;
+  }
 `;
 
 const DisplayName = styled.div`
