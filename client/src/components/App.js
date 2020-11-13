@@ -30,6 +30,7 @@ function App() {
             <Route exact path="/">
               <HomeFeed
                 currentUserAvatar={currentUserAvatar}
+                currentUser={currentUser}
                 status={status}
                 allTweets={allTweets}
                 feedStatus={feedStatus}

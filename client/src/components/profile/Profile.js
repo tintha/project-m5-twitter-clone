@@ -106,6 +106,9 @@ const Profile = ({ currentUser }) => {
               numLikes={feedDetails[tweet].numLikes}
               numRetweets={feedDetails[tweet].numRetweets}
               isLikedByUser={feedDetails[tweet].isLiked}
+              bio={feedDetails[tweet].author.bio}
+              numFollowing={feedDetails[tweet].author.numFollowing}
+              numFollowers={feedDetails[tweet].author.numFollowers}
             />
           );
         })}

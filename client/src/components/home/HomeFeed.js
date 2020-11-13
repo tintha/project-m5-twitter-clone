@@ -14,6 +14,7 @@ const HomeFeed = (props) => {
     status,
     setNewTweetPost,
     currentUserAvatar,
+    currentUser,
   } = props;
   const { tweetsObjects } = useContext(TweetFeedContext);
 
@@ -27,6 +28,7 @@ const HomeFeed = (props) => {
           <Form
             setNewTweetPost={setNewTweetPost}
             currentUserAvatar={currentUserAvatar}
+            currentUser={currentUser}
           />
 
           {feedStatus === "loading" && <Loading />}
@@ -46,6 +48,9 @@ const HomeFeed = (props) => {
                     numLikes={tweetsObjects[tweet].numLikes}
                     numRetweets={tweetsObjects[tweet].numRetweets}
                     isLikedByUser={tweetsObjects[tweet].isLiked}
+                    bio={tweetsObjects[tweet].author.bio}
+                    numFollowing={tweetsObjects[tweet].author.numFollowing}
+                    numFollowers={tweetsObjects[tweet].author.numFollowers}
                   />
                 );
               })}

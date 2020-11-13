@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { FiMessageCircle, FiRepeat, FiUpload, FiHeart } from "react-icons/fi";
 import LikeButton from "./LikeButton";
+import { CurrentUserContext } from "../home/CurrentUserContext";
 
 const ActionBar = (props) => {
-  const { tweetId, numLikes, numRetweets, isLikedByUser } = props;
+  const { tweetId, numLikes, numRetweets, isLikedByUser, retweetFrom } = props;
   const [numberOfLikes, setNumberOfLikes] = useState(numLikes);
   const [likedByUser, setLikedByUser] = useState(isLikedByUser);
+  const [numberOfRetweets, setNumberOfRetweets] = useState(numRetweets);
+  const { currentUser } = useContext(CurrentUserContext);
+  const [animate, setAnimate] = useState(false);
 
   const handleToggleLike = (e) => {
     e.stopPropagation();
+    setAnimate(true);
     fetch(`/api/tweet/${tweetId}/like`, {
       method: "PUT",
       body: JSON.stringify({ like: !likedByUser }),
@@ -77,9 +82,13 @@ const ActionBar = (props) => {
           color="#b5ebb6"
           darkcolor="#759c5f"
         >
-          <FiRepeat />
+          {retweetFrom && retweetFrom.handle === currentUser ? (
+            <FiRepeat stroke="#759c5f" />
+          ) : (
+            <FiRepeat />
+          )}
         </ActionButton>
-        {numRetweets > 0 && <Number>{numRetweets}</Number>}
+        {numberOfRetweets > 0 && <Number>{numberOfRetweets}</Number>}
       </ActionDiv>
       <ActionDiv>
         <ActionButton
@@ -96,7 +105,7 @@ const ActionBar = (props) => {
           ) : (
             <FiHeart />
           )}
-          {likedByUser && <LikeButton />}
+          {likedByUser && animate && <LikeButton />}
         </ActionButton>
         {numberOfLikes > 0 && <Number>{numberOfLikes}</Number>}
       </ActionDiv>

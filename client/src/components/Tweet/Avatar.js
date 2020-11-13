@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const Avatar = ({ src, width }) => {
-  return <Img src={`${src}`} width={width} />;
+const Avatar = ({ src, width, alt }) => {
+  return <Img src={`${src}`} width={width} alt={alt} />;
 };
 
 const Img = styled.img`

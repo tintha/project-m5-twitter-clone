@@ -7,6 +7,7 @@ import ActionBar from "../Tweet/ActionBar";
 import Avatar from "../Tweet/Avatar";
 import Media from "../Tweet/Media";
 import { COLORS } from "../../constants";
+import Tooltip from "./Tooltip";
 
 const SmallTweet = (props) => {
   const {
@@ -19,6 +20,9 @@ const SmallTweet = (props) => {
     numLikes,
     numRetweets,
     isLikedByUser,
+    bio,
+    numFollowing,
+    numFollowers,
   } = props;
 
   let history = useHistory();
@@ -65,26 +69,40 @@ const SmallTweet = (props) => {
         </RetweetContainer>
         <AvatarAndTweetContainer>
           <AvatarContainer>
-            <Avatar src={author.avatarSrc} width="50" />
+            <Avatar src={author.avatarSrc} width="50" alt={author.handle} />
           </AvatarContainer>
           <TweetContainer>
             <Header>
-              <Bold
-                tabIndex="0"
-                onClick={(e) => handleProfileClick(e)}
-                onKeyDown={(e) => handleProfileKeyPress(e)}
-                aria-label="View profile"
-                role="button"
+              <Tooltip
+                displayName={author.displayName}
+                handle={author.handle}
+                avatar={author.avatarSrc}
+                bio={bio}
+                numFollowing={numFollowing}
+                numFollowers={numFollowers}
               >
-                {author.displayName}
-              </Bold>
+                <Bold
+                  tabIndex="0"
+                  onClick={(e) => handleProfileClick(e)}
+                  onKeyDown={(e) => handleProfileKeyPress(e)}
+                  aria-label="View profile"
+                  role="button"
+                >
+                  {author.displayName}
+                </Bold>
+              </Tooltip>
               <HandleAndDate>
                 @{author.handle} · {moment(timestamp).format("MMM Do")}
               </HandleAndDate>
             </Header>
             <TweetContents>{status}</TweetContents>
             {media.length > 0 && (
-              <Media src={media[0].url} maxwidth={508} maxheight={270} />
+              <Media
+                src={media[0].url}
+                maxwidth={508}
+                maxheight={270}
+                alt={status}
+              />
             )}
             <ActionBar
               numLikes={numLikes}

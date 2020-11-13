@@ -76,7 +76,11 @@ const TweetDetails = () => {
         <TweetWrapper>
           <TweetHeader>
             <AvatarDiv>
-              <Avatar src={tweetInfo.author.avatarSrc} width="50" />
+              <Avatar
+                src={tweetInfo.author.avatarSrc}
+                width="50"
+                alt={tweetInfo.author.handle}
+              />
             </AvatarDiv>
             <NameAndHandle>
               <ProfileLink
@@ -97,7 +101,7 @@ const TweetDetails = () => {
                 src={tweetInfo.media[0].url}
                 maxwidth={580}
                 maxheight={400}
-                alt={`${tweetInfo.author.handle} avatar`}
+                alt={tweetInfo.status}
               />
             </MediaWrapper>
           )}

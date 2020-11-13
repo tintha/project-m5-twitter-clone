@@ -5,7 +5,7 @@ import { COLORS } from "../../constants";
 import Avatar from "../Tweet/Avatar";
 
 const Form = (props) => {
-  const { setNewTweetPost, currentUserAvatar } = props;
+  const { setNewTweetPost, currentUserAvatar, currentUser } = props;
   const [tweet, setTweet] = useState("");
   const [isDisabled, setDisabled] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -49,7 +49,7 @@ const Form = (props) => {
   return (
     <Wrapper>
       <AvatarDiv>
-        <Avatar src={currentUserAvatar} width="30" />
+        <Avatar src={currentUserAvatar} width="30" alt={currentUser} />
       </AvatarDiv>
       <FormDiv>
         <form>
