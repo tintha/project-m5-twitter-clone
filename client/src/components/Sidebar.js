@@ -72,6 +72,11 @@ const LinkText = styled.span`
   font-size: 1rem;
   font-weight: bold;
   margin-left: 10px;
+  display: none;
+
+  @media only screen and (min-width: 768px) {
+    display: inline;
+  }
 `;
 
 export default Sidebar;
