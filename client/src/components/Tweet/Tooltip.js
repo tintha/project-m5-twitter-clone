@@ -35,10 +35,8 @@ const Tooltip = ({
 const Wrapper = styled.div`
   position: relative;
   display: inline-block;
-  left: 50%;
-  width: 300px;
-  height: 200px;
-  border: 1px solid black;
+  width: 250px;
+  height: auto;
   background-color: #fff;
   padding: 20px;
 `;
