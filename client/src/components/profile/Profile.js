@@ -9,6 +9,7 @@ import UnknownError from "../errors/UnknownError";
 import Loading from "../Loading";
 import { COLORS } from "../../constants";
 import TabLinks from "./Tabs";
+import { Link } from "react-router-dom";
 
 const Profile = ({ currentUser }) => {
   const {
@@ -27,7 +28,12 @@ const Profile = ({ currentUser }) => {
       setNumberFollowers(profileInfo.numFollowers);
       setIsFollowing(profileInfo.isBeingFollowedByYou);
     }
-  }, [loadingFeed]);
+  }, [
+    loadingFeed,
+    profileInfo.numFollowing,
+    profileInfo.numFollowers,
+    profileInfo.isBeingFollowedByYou,
+  ]);
 
   const handleClickFollow = (e) => {
     fetch(`/api/${profileInfo.handle}/follow`, {
@@ -129,12 +135,34 @@ const Profile = ({ currentUser }) => {
             </MoreDetails>
             <Followers>
               <FollowingFollowers>
-                <Bold>{numberFollowing}</Bold>
-                <OptionalDetails>Following</OptionalDetails>
+                {numberFollowing > 0 ? (
+                  <>
+                    <StyledLink to={`/${profileInfo.handle}/following`}>
+                      <Bold>{numberFollowing}</Bold>
+                      <OptionalDetails>Following</OptionalDetails>
+                    </StyledLink>
+                  </>
+                ) : (
+                  <>
+                    <Bold>{numberFollowing}</Bold>
+                    <OptionalDetails>Following</OptionalDetails>
+                  </>
+                )}
               </FollowingFollowers>
               <FollowingFollowers>
-                <Bold>{numberFollower}</Bold>
-                <OptionalDetails>Followers</OptionalDetails>
+                {numberFollower > 0 ? (
+                  <>
+                    <StyledLink to={`/${profileInfo.handle}/followers`}>
+                      <Bold>{numberFollower}</Bold>
+                      <OptionalDetails>Followers</OptionalDetails>
+                    </StyledLink>
+                  </>
+                ) : (
+                  <>
+                    <Bold>{numberFollower}</Bold>
+                    <OptionalDetails>Followers</OptionalDetails>
+                  </>
+                )}
               </FollowingFollowers>
             </Followers>
           </ProfileInfos>
@@ -152,7 +180,7 @@ const Profile = ({ currentUser }) => {
             <SmallTweet
               key={tweet}
               tweetId={tweet}
-              retweetFrom={feedDetails[tweet].retweetFrom}
+              retweetFrom={feedDetails[tweet].retweetFrom || null}
               author={feedDetails[tweet].author}
               timestamp={feedDetails[tweet].timestamp}
               status={feedDetails[tweet].status}
@@ -306,6 +334,13 @@ const FollowingFollowers = styled.div`
 
 const Bold = styled.span`
   font-weight: bold;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export default Profile;

@@ -40,7 +40,7 @@ const HomeFeed = (props) => {
                   <SmallTweet
                     key={tweet}
                     tweetId={tweet}
-                    retweetFrom={tweetsObjects[tweet].retweetFrom}
+                    retweetFrom={tweetsObjects[tweet].retweetFrom || null}
                     author={tweetsObjects[tweet].author}
                     timestamp={tweetsObjects[tweet].timestamp}
                     status={tweetsObjects[tweet].status}

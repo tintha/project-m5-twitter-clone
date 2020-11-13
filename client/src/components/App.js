@@ -12,6 +12,10 @@ import { COLORS } from "../constants";
 import { CurrentUserContext } from "./home/CurrentUserContext";
 import { TweetFeedContext } from "./home/TweetFeedsContext";
 import { ProfileProvider } from "./profile/ProfileContext";
+import Followers from "./profile/Followers";
+import Following from "./profile/Following";
+import FollowerTabs from "./profile/FollowersTabs";
+import PageHeader from "./profile/PageHeader";
 
 function App() {
   const { status, currentUser, currentUserAvatar } = useContext(
@@ -49,6 +53,20 @@ function App() {
             <Route exact path="/:profile">
               <ProfileProvider>
                 <Profile currentUser={currentUser} />
+              </ProfileProvider>
+            </Route>
+            <Route exact path="/:profile/followers">
+              <ProfileProvider>
+                <PageHeader />
+                <FollowerTabs />
+                <Followers />
+              </ProfileProvider>
+            </Route>
+            <Route exact path="/:profile/following">
+              <ProfileProvider>
+                <PageHeader />
+                <FollowerTabs />
+                <Following />
               </ProfileProvider>
             </Route>
           </Switch>
