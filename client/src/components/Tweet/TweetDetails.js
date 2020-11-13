@@ -95,7 +95,7 @@ const TweetDetails = () => {
           <TweetText>
             <p>{tweetInfo.status}</p>
           </TweetText>
-          {tweetInfo.media.length > 0 && (
+          {tweetInfo.media && tweetInfo.media.length > 0 && (
             <MediaWrapper>
               <Media
                 src={tweetInfo.media[0].url}
@@ -118,6 +118,7 @@ const TweetDetails = () => {
               tweetId={params.tweetId}
               isLikedByUser={tweetInfo.isLiked}
               retweetFrom={tweetInfo.retweetFrom}
+              isRetweetedByUser={tweetInfo.isRetweeted}
             />
           </CenteredBart>
         </TweetWrapper>

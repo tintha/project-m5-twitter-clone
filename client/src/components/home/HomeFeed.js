@@ -51,6 +51,7 @@ const HomeFeed = (props) => {
                     bio={tweetsObjects[tweet].author.bio}
                     numFollowing={tweetsObjects[tweet].author.numFollowing}
                     numFollowers={tweetsObjects[tweet].author.numFollowers}
+                    isRetweetedByUser={tweetsObjects[tweet].isRetweeted}
                   />
                 );
               })}

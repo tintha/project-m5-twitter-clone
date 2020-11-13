@@ -23,6 +23,7 @@ const SmallTweet = (props) => {
     bio,
     numFollowing,
     numFollowers,
+    isRetweetedByUser,
   } = props;
 
   let history = useHistory();
@@ -96,7 +97,7 @@ const SmallTweet = (props) => {
               </HandleAndDate>
             </Header>
             <TweetContents>{status}</TweetContents>
-            {media.length > 0 && (
+            {media && media.length > 0 && (
               <Media
                 src={media[0].url}
                 maxwidth={508}
@@ -110,6 +111,7 @@ const SmallTweet = (props) => {
               tweetId={tweetId}
               isLikedByUser={isLikedByUser}
               retweetFrom={retweetFrom}
+              isRetweetedByUser={isRetweetedByUser}
             />
           </TweetContainer>
         </AvatarAndTweetContainer>

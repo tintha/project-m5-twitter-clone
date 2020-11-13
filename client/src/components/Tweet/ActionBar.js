@@ -5,12 +5,22 @@ import LikeButton from "./LikeButton";
 import { CurrentUserContext } from "../home/CurrentUserContext";
 
 const ActionBar = (props) => {
-  const { tweetId, numLikes, numRetweets, isLikedByUser, retweetFrom } = props;
+  const {
+    tweetId,
+    numLikes,
+    numRetweets,
+    isLikedByUser,
+    retweetFrom,
+    isRetweetedByUser,
+  } = props;
   const [numberOfLikes, setNumberOfLikes] = useState(numLikes);
   const [likedByUser, setLikedByUser] = useState(isLikedByUser);
-  const [numberOfRetweets, setNumberOfRetweets] = useState(numRetweets);
+  const [numberOfRetweets, setNumberOfRetweets] = useState(
+    !numRetweets ? 0 : numRetweets
+  );
   const { currentUser } = useContext(CurrentUserContext);
   const [animate, setAnimate] = useState(false);
+  const [retweetedByUser, setRetweetedByUser] = useState(isRetweetedByUser);
 
   const handleToggleLike = (e) => {
     e.stopPropagation();
@@ -36,19 +46,43 @@ const ActionBar = (props) => {
       });
   };
 
-  const handleLikeKeyPress = (e) => {
-    if (e.code === "Enter") {
+  const handleRetweet = (e) => {
+    e.stopPropagation();
+    fetch(`/api/tweet/${tweetId}/retweet`, {
+      method: "PUT",
+      body: JSON.stringify({ retweet: !retweetedByUser }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((resp) => {
+        if (resp.success) {
+          setRetweetedByUser(!retweetedByUser);
+          retweetedByUser === true
+            ? setNumberOfRetweets(numberOfRetweets - 1)
+            : setNumberOfRetweets(numberOfRetweets + 1);
+        } else if (resp.error) {
+          console.log(resp.error);
+        }
+      });
+  };
+
+  const handleLikeKeyPress = (e, code, callback) => {
+    if (e.code === code) {
       e.preventDefault();
       e.stopPropagation();
-      handleToggleLike(e);
+      callback(e);
     }
   };
 
+  // dummy function for the reply and share buttons
   const handleClickVoid = (e) => {
     e.stopPropagation();
     console.log("Does nothing for now");
   };
-
+  // dummy function for the reply and share buttons
   const handleKeyDownVoid = (e) => {
     if (e.code === "Enter") {
       e.preventDefault();
@@ -75,15 +109,16 @@ const ActionBar = (props) => {
       <ActionDiv>
         <ActionButton
           tabIndex="0"
-          onClick={(e) => handleClickVoid(e)}
-          onKeyDown={(e) => handleKeyDownVoid(e)}
+          onClick={(e) => handleRetweet(e)}
+          onKeyDown={(e) => handleLikeKeyPress(e, "Enter", handleRetweet)}
           aria-label="Retweet"
           role="button"
           color="#b5ebb6"
           darkcolor="#759c5f"
         >
-          {retweetFrom && retweetFrom.handle === currentUser ? (
-            <FiRepeat stroke="#759c5f" />
+          {(retweetFrom && retweetFrom.handle === currentUser) ||
+          retweetedByUser ? (
+            <FiRepeat stroke="#04c738" />
           ) : (
             <FiRepeat />
           )}
@@ -94,7 +129,7 @@ const ActionBar = (props) => {
         <ActionButton
           tabIndex="0"
           onClick={(e) => handleToggleLike(e)}
-          onKeyDown={(e) => handleLikeKeyPress(e)}
+          onKeyDown={(e) => handleLikeKeyPress(e, "Enter", handleToggleLike)}
           aria-label="Like or unlike"
           role="button"
           color="#f5bae2"
