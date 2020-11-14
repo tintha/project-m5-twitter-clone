@@ -274,6 +274,10 @@ const FollowButton = styled.button`
     color: #fff;
     background-color: ${COLORS.primary};
   }
+  &:focus {
+    color: ${COLORS.primary};
+    background-color: ${COLORS.grayBorder};
+  }
 `;
 
 const FollowingButton = styled.button`
@@ -292,6 +296,10 @@ const FollowingButton = styled.button`
   &:hover {
     color: ${COLORS.primary};
     background-color: #fff;
+  }
+  &:focus {
+    color: ${COLORS.primary};
+    background-color: ${COLORS.grayBorder};
   }
 `;
 
