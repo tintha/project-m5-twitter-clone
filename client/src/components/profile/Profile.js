@@ -48,7 +48,6 @@ const Profile = ({ currentUser }) => {
         if (resp.success) {
           setNumberFollowers(numberFollower + 1);
           setIsFollowing(!isFollowing);
-          console.log(resp.success);
         } else if (resp.error) {
           console.log(resp.error);
         }
@@ -68,11 +67,20 @@ const Profile = ({ currentUser }) => {
         if (resp.success) {
           setNumberFollowers(numberFollower - 1);
           setIsFollowing(!isFollowing);
-          console.log(resp.success);
         } else if (resp.error) {
           console.log(resp.error);
         }
       });
+  };
+
+  const unfollowBtn = React.useRef(null);
+
+  const handleMouseEnterUnfollow = () => {
+    unfollowBtn.current.innerText = "Unfollow";
+  };
+
+  const handleMouseLeaveUnfollow = () => {
+    unfollowBtn.current.innerText = "Following";
   };
 
   return (
@@ -94,7 +102,12 @@ const Profile = ({ currentUser }) => {
           <FollowButtonDiv>
             {profileInfo.handle !== currentUser &&
               (isFollowing ? (
-                <FollowingButton onClick={() => handleClickUnfollow()}>
+                <FollowingButton
+                  onClick={() => handleClickUnfollow()}
+                  onMouseEnter={() => handleMouseEnterUnfollow()}
+                  onMouseLeave={() => handleMouseLeaveUnfollow()}
+                  ref={unfollowBtn}
+                >
                   Following
                 </FollowingButton>
               ) : (
@@ -243,6 +256,7 @@ const FollowButton = styled.button`
   cursor: pointer;
   margin-right: 10px;
   outline: none;
+  width: 120px;
   &:hover {
     color: #fff;
     background-color: ${COLORS.primary};
@@ -260,6 +274,8 @@ const FollowingButton = styled.button`
   cursor: pointer;
   margin-right: 10px;
   border: 1px solid ${COLORS.primary};
+  width: 120px;
+  outline: none;
   &:hover {
     color: ${COLORS.primary};
     background-color: #fff;

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { COLORS } from "../../constants";
 import Icon from "react-icons-kit";
 import { arrowLeft } from "react-icons-kit/typicons/arrowLeft";
