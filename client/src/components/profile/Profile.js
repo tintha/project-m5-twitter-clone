@@ -90,7 +90,7 @@ const Profile = ({ currentUser }) => {
       {loadingProfile === "error" && <UnknownError />}
       {loadingProfile === "success" && (
         <>
-          <Banner bannerSrc={profileInfo.bannerSrc} id="top">
+          <Banner bannerSrc={profileInfo.bannerSrc}>
             <AvatarDiv>
               <Avatar
                 src={profileInfo.avatarSrc}
@@ -215,6 +215,7 @@ const Profile = ({ currentUser }) => {
                   numFollowing={author.numFollowing}
                   numFollowers={author.numFollowers}
                   isRetweetedByUser={isRetweeted}
+                  currentProfile={profileInfo.handle}
                 />
               );
             })}

@@ -63,6 +63,7 @@ const HomeFeed = (props) => {
                     numFollowing={author.numFollowing}
                     numFollowers={author.numFollowers}
                     isRetweetedByUser={isRetweeted}
+                    currentProfile={null}
                   />
                 );
               })}

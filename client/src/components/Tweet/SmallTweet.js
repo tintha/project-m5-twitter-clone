@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import moment from "moment";
@@ -8,7 +8,6 @@ import Avatar from "../Tweet/Avatar";
 import Media from "../Tweet/Media";
 import { COLORS } from "../../constants";
 import Tooltip from "./Tooltip";
-import { ProfileContext } from "../profile/ProfileContext";
 
 const SmallTweet = (props) => {
   const {
@@ -25,8 +24,8 @@ const SmallTweet = (props) => {
     numFollowing,
     numFollowers,
     isRetweetedByUser,
+    currentProfile,
   } = props;
-  const { profileInfo } = useContext(ProfileContext);
 
   let history = useHistory();
 
@@ -36,7 +35,7 @@ const SmallTweet = (props) => {
 
   const handleProfileClick = (e) => {
     e.stopPropagation();
-    author.handle === profileInfo.handle
+    author.handle === currentProfile
       ? window.scrollTo(0, 0)
       : history.push(`/${author.handle}`);
   };
@@ -50,7 +49,7 @@ const SmallTweet = (props) => {
   const handleProfileKeyPress = (e) => {
     if (e.code === "Enter") {
       e.stopPropagation();
-      author.handle === profileInfo.handle
+      author.handle === currentProfile
         ? window.scrollTo(0, 0)
         : history.push(`/${author.handle}`);
     }
