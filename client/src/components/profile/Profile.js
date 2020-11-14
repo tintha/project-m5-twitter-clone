@@ -179,35 +179,35 @@ const Profile = ({ currentUser }) => {
               </FollowingFollowers>
             </Followers>
           </ProfileInfos>
+
+          {loadingFeed === "loading" && <Loading />}
+          {loadingFeed === "error" && <UnknownError />}
+          {loadingFeed === "success" && (
+            <TabLinks currentProfile={profileInfo.handle}></TabLinks>
+          )}
+          {loadingFeed === "success" &&
+            userFeed.map((tweet) => {
+              return (
+                <SmallTweet
+                  key={tweet}
+                  tweetId={tweet}
+                  retweetFrom={feedDetails[tweet].retweetFrom || null}
+                  author={feedDetails[tweet].author}
+                  timestamp={feedDetails[tweet].timestamp}
+                  status={feedDetails[tweet].status}
+                  media={feedDetails[tweet].media}
+                  numLikes={feedDetails[tweet].numLikes}
+                  numRetweets={feedDetails[tweet].numRetweets}
+                  isLikedByUser={feedDetails[tweet].isLiked}
+                  bio={feedDetails[tweet].author.bio}
+                  numFollowing={feedDetails[tweet].author.numFollowing}
+                  numFollowers={feedDetails[tweet].author.numFollowers}
+                  isRetweetedByUser={feedDetails[tweet].isRetweeted}
+                />
+              );
+            })}
         </>
       )}
-
-      {loadingFeed === "loading" && <Loading />}
-      {loadingFeed === "error" && <UnknownError />}
-      {loadingFeed === "success" && (
-        <TabLinks currentProfile={profileInfo.handle}></TabLinks>
-      )}
-      {loadingFeed === "success" &&
-        userFeed.map((tweet) => {
-          return (
-            <SmallTweet
-              key={tweet}
-              tweetId={tweet}
-              retweetFrom={feedDetails[tweet].retweetFrom || null}
-              author={feedDetails[tweet].author}
-              timestamp={feedDetails[tweet].timestamp}
-              status={feedDetails[tweet].status}
-              media={feedDetails[tweet].media}
-              numLikes={feedDetails[tweet].numLikes}
-              numRetweets={feedDetails[tweet].numRetweets}
-              isLikedByUser={feedDetails[tweet].isLiked}
-              bio={feedDetails[tweet].author.bio}
-              numFollowing={feedDetails[tweet].author.numFollowing}
-              numFollowers={feedDetails[tweet].author.numFollowers}
-              isRetweetedByUser={feedDetails[tweet].isRetweeted}
-            />
-          );
-        })}
     </ProfileWholeContainer>
   );
 };

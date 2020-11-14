@@ -53,70 +53,68 @@ const SmallTweet = (props) => {
   };
 
   return (
-    <>
-      <Wrapper
-        tabIndex="0"
-        onClick={(e) => handleTweetClick(e)}
-        onKeyDown={(e) => handleTweetKeyPress(e)}
-        aria-label="View tweet"
-        role="button"
-      >
-        <RetweetContainer>
-          {retweetFrom && (
-            <>
-              <FiRepeat /> <span>{retweetFrom.displayName} Remeowed</span>
-            </>
-          )}
-        </RetweetContainer>
-        <AvatarAndTweetContainer>
-          <AvatarContainer>
-            <Avatar src={author.avatarSrc} width="50" alt={author.handle} />
-          </AvatarContainer>
-          <TweetContainer>
-            <Header>
-              <Tooltip
-                displayName={author.displayName}
-                handle={author.handle}
-                avatar={author.avatarSrc}
-                bio={bio}
-                numFollowing={numFollowing}
-                numFollowers={numFollowers}
+    <Wrapper
+      tabIndex="0"
+      onClick={(e) => handleTweetClick(e)}
+      onKeyDown={(e) => handleTweetKeyPress(e)}
+      aria-label="View tweet"
+      role="button"
+    >
+      <RetweetContainer>
+        {retweetFrom && (
+          <>
+            <FiRepeat /> <span>{retweetFrom.displayName} Remeowed</span>
+          </>
+        )}
+      </RetweetContainer>
+      <AvatarAndTweetContainer>
+        <AvatarContainer>
+          <Avatar src={author.avatarSrc} width="50" alt={author.handle} />
+        </AvatarContainer>
+        <TweetContainer>
+          <Header>
+            <Tooltip
+              displayName={author.displayName}
+              handle={author.handle}
+              avatar={author.avatarSrc}
+              bio={bio}
+              numFollowing={numFollowing}
+              numFollowers={numFollowers}
+            >
+              <Bold
+                tabIndex="0"
+                onClick={(e) => handleProfileClick(e)}
+                onKeyDown={(e) => handleProfileKeyPress(e)}
+                aria-label="View profile"
+                role="button"
               >
-                <Bold
-                  tabIndex="0"
-                  onClick={(e) => handleProfileClick(e)}
-                  onKeyDown={(e) => handleProfileKeyPress(e)}
-                  aria-label="View profile"
-                  role="button"
-                >
-                  {author.displayName}
-                </Bold>
-              </Tooltip>
-              <HandleAndDate>
-                @{author.handle} · {moment(timestamp).format("MMM Do")}
-              </HandleAndDate>
-            </Header>
-            <TweetContents>{status}</TweetContents>
-            {media && media.length > 0 && (
-              <Media
-                src={media[0].url}
-                maxwidth={508}
-                maxheight={270}
-                alt={status}
-              />
-            )}
-            <ActionBar
-              numLikes={numLikes}
-              numRetweets={numRetweets}
-              tweetId={tweetId}
-              isLikedByUser={isLikedByUser}
-              retweetFrom={retweetFrom}
-              isRetweetedByUser={isRetweetedByUser}
+                {author.displayName}
+              </Bold>
+            </Tooltip>
+            <HandleAndDate>
+              @{author.handle} · {moment(timestamp).format("MMM Do")}
+            </HandleAndDate>
+          </Header>
+          <TweetContents>{status}</TweetContents>
+          {media && media.length > 0 && (
+            <Media
+              src={media[0].url}
+              maxwidth={508}
+              maxheight={270}
+              alt={status}
             />
-          </TweetContainer>
-        </AvatarAndTweetContainer>
-      </Wrapper>
-    </>
+          )}
+          <ActionBar
+            numLikes={numLikes}
+            numRetweets={numRetweets}
+            tweetId={tweetId}
+            isLikedByUser={isLikedByUser}
+            retweetFrom={retweetFrom}
+            isRetweetedByUser={isRetweetedByUser}
+          />
+        </TweetContainer>
+      </AvatarAndTweetContainer>
+    </Wrapper>
   );
 };
 
