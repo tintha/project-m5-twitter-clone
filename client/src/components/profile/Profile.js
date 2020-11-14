@@ -22,6 +22,7 @@ const Profile = ({ currentUser }) => {
   const [numberFollowing, setNumberFollowing] = useState(null);
   const [numberFollower, setNumberFollowers] = useState(null);
   const [isFollowing, setIsFollowing] = useState(null);
+
   useEffect(() => {
     if (loadingFeed === "success") {
       setNumberFollowing(profileInfo.numFollowing);
@@ -89,7 +90,7 @@ const Profile = ({ currentUser }) => {
       {loadingProfile === "error" && <UnknownError />}
       {loadingProfile === "success" && (
         <>
-          <Banner bannerSrc={profileInfo.bannerSrc}>
+          <Banner bannerSrc={profileInfo.bannerSrc} id="top">
             <AvatarDiv>
               <Avatar
                 src={profileInfo.avatarSrc}
@@ -186,23 +187,34 @@ const Profile = ({ currentUser }) => {
             <TabLinks currentProfile={profileInfo.handle}></TabLinks>
           )}
           {loadingFeed === "success" &&
-            userFeed.map((tweet) => {
+            userFeed.map((tweetId) => {
+              const {
+                retweetFrom,
+                author,
+                timestamp,
+                status,
+                media,
+                numLikes,
+                numRetweets,
+                isLiked,
+                isRetweeted,
+              } = feedDetails[tweetId];
               return (
                 <SmallTweet
-                  key={tweet}
-                  tweetId={tweet}
-                  retweetFrom={feedDetails[tweet].retweetFrom || null}
-                  author={feedDetails[tweet].author}
-                  timestamp={feedDetails[tweet].timestamp}
-                  status={feedDetails[tweet].status}
-                  media={feedDetails[tweet].media}
-                  numLikes={feedDetails[tweet].numLikes}
-                  numRetweets={feedDetails[tweet].numRetweets}
-                  isLikedByUser={feedDetails[tweet].isLiked}
-                  bio={feedDetails[tweet].author.bio}
-                  numFollowing={feedDetails[tweet].author.numFollowing}
-                  numFollowers={feedDetails[tweet].author.numFollowers}
-                  isRetweetedByUser={feedDetails[tweet].isRetweeted}
+                  key={tweetId}
+                  tweetId={tweetId}
+                  retweetFrom={retweetFrom || null}
+                  author={author}
+                  timestamp={timestamp}
+                  status={status}
+                  media={media}
+                  numLikes={numLikes}
+                  numRetweets={numRetweets}
+                  isLikedByUser={isLiked}
+                  bio={author.bio}
+                  numFollowing={author.numFollowing}
+                  numFollowers={author.numFollowers}
+                  isRetweetedByUser={isRetweeted}
                 />
               );
             })}

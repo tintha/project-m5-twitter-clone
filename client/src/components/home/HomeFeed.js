@@ -35,23 +35,34 @@ const HomeFeed = (props) => {
           {feedStatus === "error" && <UnknownError />}
           {feedStatus === "success" && (
             <>
-              {allTweets.map((tweet) => {
+              {allTweets.map((tweetId) => {
+                const {
+                  retweetFrom,
+                  author,
+                  timestamp,
+                  status,
+                  media,
+                  numLikes,
+                  numRetweets,
+                  isLiked,
+                  isRetweeted,
+                } = tweetsObjects[tweetId];
                 return (
                   <SmallTweet
-                    key={tweet}
-                    tweetId={tweet}
-                    retweetFrom={tweetsObjects[tweet].retweetFrom || null}
-                    author={tweetsObjects[tweet].author}
-                    timestamp={tweetsObjects[tweet].timestamp}
-                    status={tweetsObjects[tweet].status}
-                    media={tweetsObjects[tweet].media}
-                    numLikes={tweetsObjects[tweet].numLikes}
-                    numRetweets={tweetsObjects[tweet].numRetweets}
-                    isLikedByUser={tweetsObjects[tweet].isLiked}
-                    bio={tweetsObjects[tweet].author.bio}
-                    numFollowing={tweetsObjects[tweet].author.numFollowing}
-                    numFollowers={tweetsObjects[tweet].author.numFollowers}
-                    isRetweetedByUser={tweetsObjects[tweet].isRetweeted}
+                    key={tweetId}
+                    tweetId={tweetId}
+                    retweetFrom={retweetFrom || null}
+                    author={author}
+                    timestamp={timestamp}
+                    status={status}
+                    media={media}
+                    numLikes={numLikes}
+                    numRetweets={numRetweets}
+                    isLikedByUser={isLiked}
+                    bio={author.bio}
+                    numFollowing={author.numFollowing}
+                    numFollowers={author.numFollowers}
+                    isRetweetedByUser={isRetweeted}
                   />
                 );
               })}
