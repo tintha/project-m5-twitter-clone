@@ -8,9 +8,7 @@ import TweetDetails from "./Tweet/TweetDetails";
 import Profile from "./profile/Profile";
 import Sidebar from "./Sidebar";
 import { COLORS } from "../constants";
-
 import { CurrentUserContext } from "./home/CurrentUserContext";
-import { TweetFeedContext } from "./home/TweetFeedsContext";
 import { ProfileProvider } from "./profile/ProfileContext";
 import Followers from "./profile/Followers";
 import Following from "./profile/Following";
@@ -18,12 +16,7 @@ import FollowerTabs from "./profile/FollowersTabs";
 import PageHeader from "./profile/PageHeader";
 
 function App() {
-  const { status, currentUser, currentUserAvatar } = useContext(
-    CurrentUserContext
-  );
-  const { allTweets, feedStatus, setNewTweetPost } = useContext(
-    TweetFeedContext
-  );
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <Main>
@@ -32,14 +25,7 @@ function App() {
         <Content>
           <Switch>
             <Route exact path="/">
-              <HomeFeed
-                currentUserAvatar={currentUserAvatar}
-                currentUser={currentUser}
-                status={status}
-                allTweets={allTweets}
-                feedStatus={feedStatus}
-                setNewTweetPost={setNewTweetPost}
-              />
+              <HomeFeed />
             </Route>
             <Route exact path="/notifications">
               <Notifications />

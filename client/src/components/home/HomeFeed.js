@@ -1,22 +1,20 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { TweetFeedContext } from "./TweetFeedsContext";
+import { CurrentUserContext } from "./CurrentUserContext";
 import SmallTweet from "../Tweet/SmallTweet";
 import Form from "./Form";
 import Loading from "../Loading";
 import UnknownError from "../errors/UnknownError";
 import { COLORS } from "../../constants";
 
-const HomeFeed = (props) => {
-  const {
-    allTweets,
-    feedStatus,
-    status,
-    setNewTweetPost,
-    currentUserAvatar,
-    currentUser,
-  } = props;
-  const { tweetsObjects } = useContext(TweetFeedContext);
+const HomeFeed = () => {
+  const { status, currentUser, currentUserAvatar } = useContext(
+    CurrentUserContext
+  );
+  const { allTweets, feedStatus, setNewTweetPost, tweetsObjects } = useContext(
+    TweetFeedContext
+  );
 
   return (
     <>
